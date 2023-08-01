@@ -1,0 +1,276 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{%- assign social_icons = false -%}
+
+{% if
+  settings.social_twitter_link != blank
+  or settings.social_facebook_link != blank
+  or settings.social_pinterest_link != blank
+  or settings.social_instagram_link != blank
+  or settings.social_tumblr_link != blank
+  or settings.social_snapchat_link != blank
+  or settings.social_youtube_link != blank
+  or settings.social_vimeo_link != blank
+  or template contains 'article'
+  or template contains 'blog'
+%}
+  {%- assign social_icons = true -%}
+{% endif %}
+
+<footer class="site-footer" role="contentinfo">
+  <div class="page-width">
+    <div class="grid grid--no-gutters">
+      <div class="grid__item medium-up--one-fifth">
+        <ul class="site-footer__linklist">
+          <a href="/" itemprop="url" class="site-header__logo-image">
+            <img src="https://cdn.shopify.com/s/files/1/2659/0318/files/tca-final-white.svg" itemprop="logo">
+          </a>
+        </ul>
+      </div>
+        
+      <div class="grid__item medium-up--one-fifth v-str">
+        {%- assign footer_linklist = section.settings.footer_linklist -%}
+        {% if linklists[footer_linklist].links.size > 0 %}
+          <ul class="site-footer__linklist">
+            {% for link in linklists[footer_linklist].links %}
+              <li class="site-footer__linklist-item">
+                <a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+              </li>
+            {% endfor %}
+            <p class="site-footer__copyright-content copyright">© {{ 'now' | date: "%Y" }}, {{ section.settings.store_name }}</p>
+          </ul>
+        {% endif %}
+      </div>
+
+      <div class="grid__item medium-up--one-fifth v-ytr">
+        {%- assign footer_linklist_two = section.settings.footer_linklist_two -%}
+        {% if linklists[footer_linklist_two].links.size > 0 %}
+          <ul class="site-footer__linklist">
+            {% for link in linklists[footer_linklist_two].links %}
+              <li class="site-footer__linklist-item">
+                <a href="{{ link.url }}">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+              </li>
+            {% endfor %}
+            <li><button id="ot-sdk-btn" class="ot-sdk-show-settings">Cookie Settings</button></li>
+          </ul>
+        {% endif %} 
+      </div>
+
+      <p class="mobile-border-bottom"></p> 
+      
+      <div class="grid__item medium-up--one-sixth">
+         {% if section.settings.footer_instagram != blank and section.settings.insta_account_link_1 != blank %}
+        <ul class="site-footer__linklist instagram_linklist">
+          <li><a href="https://www.instagram.com/{{ section.settings.insta_account_link_1 }}" target="_blank" class="btn_instagram">
+            {% comment %} {{ section.settings.footer_instagram }} {% endcomment %}
+            <img src="https://cdn.shopify.com/s/files/1/2659/0318/files/instagram-logo.svg">
+          </a></li>
+        </ul>
+        {% endif %}
+        
+        {% if section.settings.footer_facebook != blank and section.settings.facebook_account_link_1 != blank %}
+        <ul class="site-footer__linklist facebook_linklist">
+          <li><a href="https://www.facebook.com/{{ section.settings.facebook_account_link_1 }}" target="_blank" class="btn_facebook">
+            {% comment %}  {{ section.settings.footer_facebook }}  {% endcomment %} 
+          	<img src="https://cdn.shopify.com/s/files/1/2659/0318/files/facebook_icon_bc901033-9fe7-4b37-b736-9fbb74303b03.svg" style="width:18px;">
+            </a></li> 
+        </ul>
+        {% endif %}
+        
+        
+        <ul class="site-footer__linklist v-linked">
+          <li class="site-footer__linklist-item tp_mob">
+            <!-- TrustBox widget - Micro Review Count -->
+            <div class="trustpilot-widget" data-locale="en-GB" data-template-id="5419b6a8b0d04a076446a9ad" data-businessunit-id="5bd852a183c95e0001f6f170" data-style-height="46px" data-style-width="100%" data-theme="dark">
+            <a href="https://uk.trustpilot.com/review/tca.fit" target="_blank"><ly-as-12585007>Trustpilot</ly-as-12585007></a>
+            </div>
+            <!-- End TrustBox widget -->
+          </li>
+        </ul>
+      </div>
+
+      <div class="grid__item medium-up--one-fifth">
+        <ul class="site-footer__linklist">
+          <li class="site-footer__linklist-item tp_desk">
+            <!-- TrustBox widget - Micro Review Count -->
+            <div class="trustpilot-widget" data-locale="en-GB" data-template-id="5419b6a8b0d04a076446a9ad" data-businessunit-id="5bd852a183c95e0001f6f170" data-style-height="46px" data-style-width="100%" data-theme="dark">
+            <a href="https://uk.trustpilot.com/review/tca.fit" target="_blank"><ly-as-12585007>Trustpilot</ly-as-12585007></a>
+            </div>
+            <!-- End TrustBox widget -->
+          </li>
+         <!-- <li class="site-footer__linklist-item">
+            <div class="hc-langify">
+              {% include 'custom-languages-switcher' %}
+            </div>
+          </li>-->
+        </ul>
+      </div>
+      
+    </div>
+
+    <div class="grid grid--no-gutters">
+      {% if social_icons %}
+        <div class="grid__item medium-up--one-half">
+          <ul class="list--inline site-footer__social-icons social-icons">
+            {% if settings.social_facebook_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_facebook_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Facebook' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Facebook' }}{% endcapture %}{% include 'ly-static-string' with '12585019' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585018' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'Facebook ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-facebook' %}
+                  <span class="icon__fallback-text"><ly-as-12585008>Facebook</ly-as-12585008></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_twitter_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_twitter_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Twitter' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Twitter' }}{% endcapture %}{% include 'ly-static-string' with '12585022' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585021' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'Twitter ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-twitter' %}
+                  <span class="icon__fallback-text"><ly-as-12585009>Twitter</ly-as-12585009></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_pinterest_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_pinterest_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Pinterest' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Pinterest' }}{% endcapture %}{% include 'ly-static-string' with '12585025' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585024' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'Pinterest ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-pinterest' %}
+                  <span class="icon__fallback-text"><ly-as-12585010>Pinterest</ly-as-12585010></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_instagram_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_instagram_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Instagram' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Instagram' }}{% endcapture %}{% include 'ly-static-string' with '12585028' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585027' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'Instagram ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-instagram' %}
+                  <span class="icon__fallback-text"><ly-as-12585011>Instagram</ly-as-12585011></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_tumblr_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_tumblr_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Tumblr' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Tumblr' }}{% endcapture %}{% include 'ly-static-string' with '12585031' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585030' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'Tumblr ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-tumblr' %}
+                  <span class="icon__fallback-text"><ly-as-12585012>Tumblr</ly-as-12585012></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_snapchat_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_snapchat_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Snapchat' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Snapchat' }}{% endcapture %}{% include 'ly-static-string' with '12585034' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585033' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'Snapchat ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-snapchat' %}
+                  <span class="icon__fallback-text"><ly-as-12585013>Snapchat</ly-as-12585013></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_youtube_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_youtube_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'YouTube' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'YouTube' }}{% endcapture %}{% include 'ly-static-string' with '12585037' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585036' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'YouTube ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-youtube' %}
+                  <span class="icon__fallback-text"><ly-as-12585014>YouTube</ly-as-12585014></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_vimeo_link != blank %}
+              <li>
+                <a class="social-icons__link" href="{{ settings.social_vimeo_link }}" title="{% comment %}ly_i18n_replace_for_[ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Vimeo' ]_begin{% endcomment %}{% capture ly_template %}{{ 'layout.footer.social_platform' | t: name: langify_shop_name, platform: 'Vimeo' }}{% endcapture %}{% include 'ly-static-string' with '12585040' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = langify_shop_name %}{% assign ly_template = ly_template | replace: '[[name]]', replacement %}{% include 'ly-static-string' with '12585039' %}{% if ly_translation %}{% assign replacement = ly_translation %}{% else %}{% assign replacement = 'Vimeo ' %}{% endif %}{% assign ly_template = ly_template | replace: '[[platform]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                  {% include 'icon-vimeo' %}
+                  <span class="icon__fallback-text"><ly-as-12585015>Vimeo</ly-as-12585015></span>
+                </a>
+              </li>
+            {% endif %}
+            {% if template contains 'blog' or template contains 'article' %}
+              <li>
+                <a class="social-icons__link" href="{{ langify_shop_url }}{{ blog.url }}.atom">
+                  {% include 'icon-rss' %}
+                  <span class="icon__fallback-text"><ly-as-12585016>RSS</ly-as-12585016></span>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="grid__item medium-up--one-half">
+        <div class="site-footer__copyright{% if social_icons != blank %} site-footer__copyright--right medium-up--text-right{% elsif social_icons == false %} medium-up--text-left{% endif %}">
+          {% unless social_icons and section.settings.show_payment_icons %}
+            {% comment %}<small class="site-footer__copyright-content {% if social_icons != true %}site-footer__copyright-content--powered-by{% endif %}">{{ 'Built and Designed by WeMakeWebsites' | link_to: 'https://wemakewebsites.com' }}</small>{% endcomment %}
+          {% endunless %}
+          {% if section.settings.show_payment_icons %}
+            <div class="site-footer__payment-icons{% unless social_icons == blank %} site-footer__payment-icons--right{% endunless %}">
+              {% unless shop.enabled_payment_types == empty %}
+                {%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,stripe,visa' | split: ',' -%}
+                <ul class="payment-icons list--inline">
+                  {% for type in shop.enabled_payment_types %}
+                    {% if payment_icons_available contains type %}
+                      <li class="payment-icon">
+                        {%- assign icon_name = type | prepend: 'icon-' -%}
+                        {% include icon_name %}
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endunless %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% if social_icons and section.settings.show_payment_icons %}
+      <div class="site-footer__copyright--bottom">
+        {% comment %}<small class="site-footer__copyright-content">{{ 'Built and Designed by WeMakeWebsites' | link_to: 'https://wemakewebsites.com' }}</small>{% endcomment %}
+      </div>
+    {% endif %}
+  </div>
+</footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "Primary menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist_two",
+        "label": "Additional menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "store_name",
+        "label": "Store Legal Name"
+      },
+      {
+        "type": "text",
+        "id": "footer_instagram",
+        "label": "Instagram",
+        "default": "Instagram"
+      },
+      {
+        "type": "text",
+        "id": "insta_account_link_1",
+        "label": "Instagram account name",
+        "default": "wemakewebsites_"
+      },
+	  {
+		"type": "text",
+		"id": "footer_facebook",
+		"label": "Facebook",
+		"default": "Facebook"
+	  },
+	  {
+		"type": "text",
+		"id": "facebook_account_link_1",
+		"label": "Facebook account name",
+		"default": "wemakewebsites_"
+	  }
+    ]
+  }
+{% endschema %}

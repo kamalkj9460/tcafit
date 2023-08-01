@@ -1,0 +1,87 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{% if section.settings.newsletter_show or section.settings.newsletter_show_exitintent %}
+  {% assign mailchimp_url = section.settings.newsletter_form_action %}
+  {% assign ajax_url = mailchimp_url | replace: 'post?u=', 'post-json?u=' | append: '&c=?' %}
+
+  <div data-section-type="newsletter">
+    <div id="newsletter" class="modal">
+      <div class="modal__inner">
+        <div class="modal__centered">
+          <button class="modal__close" data-id="#newsletter"><svg width="17" height="17" xmlns="http://www.w3.org/2000/svg"><g stroke-width="2" stroke="#111" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M1 1l14.142 14.142M15 1L1 15"/></g></svg></button>
+          <div class="grid grid--no-gutters">
+            <div class="grid__item medium-up--one-half small--one-whole">
+              <div class="newsletter_image" style="background-image: url('{{ section.settings.newsletter_image | img_url: '2000x2000' }}');"></div>
+            </div>
+           <div class="grid__item medium-up--one-half small--one-whole"> */
+              <div class="newsletter_copy_container">
+                <div class="newsletter_copy">
+                  <h3>{{ section.settings.newsletter_title }}</h3>
+                  <p>{{ section.settings.newsletter_subtitle }}</p>
+                  <div class="newsletter__response"></div>
+                  <form action="{{ ajax_url }}" method="post" id="mc-embedded-subscribe" name="mc-embedded-subscribe-form" target="_blank">
+                    <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{% comment %}ly_i18n_replace_for_[ 'general.newsletter_form.newsletter_email' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.newsletter_form.newsletter_email' | t }}{% endcapture %}{% include 'ly-static-string' with '12585056' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}" name="EMAIL" id="mail" aria-label="{% comment %}ly_i18n_replace_for_[ 'general.newsletter_form.newsletter_email' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.newsletter_form.newsletter_email' | t }}{% endcapture %}{% include 'ly-static-string' with '12585056' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}" autocorrect="off" autocapitalize="off">
+                    <button type="submit" class="btn btn--secondary" name="subscribe" id="subscribe-popup" value="submit">{% comment %}ly_i18n_replace_for_[ 'general.newsletter_form.submit' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.newsletter_form.submit' | t }}{% endcapture %}{% include 'ly-static-string' with '12585057' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</button>
+                  </form> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="grid grid--no-gutters">
+      <div class="grid__item medium-up--one-half small--one-whole"></div>
+    </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "newsletter_show",
+        "label": "Show Newsletter",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "newsletter_type",
+        "label": "Type of Newsletter",
+        "options": [
+          {
+            "value": "banner",
+            "label": "Banner"
+          },
+          {
+            "value": "popup",
+            "label": "Popup"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "newsletter_image",
+        "label": "Newsletter image"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Newsletter Title",
+        "default": "Newsletter Title"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_subtitle",
+        "label": "Newsletter Sub-Title",
+        "default": "Newsletter Sub-Title"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_form_action",
+        "label": "Form Action"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,51 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+
+{% section 'product-template-junior' %}
+
+<script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {% comment %}ly_i18n_replace_for_[ 'products.product.add_to_cart' | t | json ]_begin{% endcomment %}{% capture ly_template %}{{ 'products.product.add_to_cart' | t | json }}{% endcapture %}{% include 'ly-static-string' with '12585639' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape | json }}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %},
+    soldOut: {% comment %}ly_i18n_replace_for_[ 'products.product.sold_out' | t | json ]_begin{% endcomment %}{% capture ly_template %}{{ 'products.product.sold_out' | t | json }}{% endcapture %}{% include 'ly-static-string' with '12585640' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape | json }}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %},
+    unavailable: {% comment %}ly_i18n_replace_for_[ 'products.product.unavailable' | t | json ]_begin{% endcomment %}{% capture ly_template %}{{ 'products.product.unavailable' | t | json }}{% endcapture %}{% include 'ly-static-string' with '12585641' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape | json }}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+  }
+</script>
+
+<script text="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {% comment %}ly_code_replace_for_[ product.title|json ]_begin{% endcomment %}{% include 'ly-title' with product %}{{ ly_translation|json }}{% comment %}ly_code_replace_end{% endcomment %},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {% comment %}ly_code_replace_for_[ product.vendor|json ]_begin{% endcomment %}{% include 'ly-vendor' with product %}{{ ly_translation|json }}{% comment %}ly_code_replace_end{% endcomment %},
+    Price: {% assign geolizr_price =  product.price %}{{ product.price|money | prepend: geolizr_prepend_code | append: geolizr_append_code |json }},
+    CompareAtPrice: {% assign geolizr_price =  product.compare_at_price_max %}{{ product.compare_at_price_max|money | prepend: geolizr_prepend_code | append: geolizr_append_code |json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>					
+<!-- RYVIU APP -->
+<div class="page-width ryviu-page-width">
+	<div class="ryviu-show-reviews" product-handle="{{product.handle}}">{% comment %}ly_code_replace_for_[product.metafields.ryviu.reviews]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign ns = language | append: 'ryviu' %}{% assign key = 'reviews' %}{% if product.metafields[ns][key] %}{% assign ly_translation = product.metafields[ns][key] %}{% else %}{% assign ly_translation = product.metafields.ryviu.reviews %}{% endif %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %}</div>
+</div>
+<!-- / RYVIU APP -->

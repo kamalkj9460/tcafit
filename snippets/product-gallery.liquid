@@ -1,0 +1,18 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}<div class="product-single__photos slider-for">
+	{% for image in product.images %}
+		{% for variant in image.variants %}
+			<img src="{{ image.src | img_url: 'original' }}" data-id="{{ variant.id }}" class="product-single__photos--original">
+		{% else %}
+			<img src="{{ image.src | img_url: 'original' }}" class="product-single__photos--original">
+		{% endfor %}
+	{% endfor %}
+</div>
+<div class="product-single__thumbnails slider-nav">
+	{% for image in product.images %}
+		{% for variant in image.variants %}
+			<img src="{{ image.src | img_url: 'medium' }}" data-id="{{ variant.id }}" class="product-single__photos--thumbnail">
+		{% else %}
+			<img src="{{ image.src | img_url: 'medium' }}" class="product-single__photos--thumbnail">
+		{% endfor %}
+	{% endfor %}
+</div>

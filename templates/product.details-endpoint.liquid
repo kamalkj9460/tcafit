@@ -1,0 +1,36 @@
+{% comment %} Please don’t update this content {% endcomment %}
+
+{% layout none %}
+{
+  "product":
+    {
+      "id":{{ product.id }},
+      "metafields":[
+        
+              {% comment %}
+                Metafield Array
+              {% endcomment %}
+              {% assign l_ly59767 = product.metafields.ly59767 %}
+              {% for v_ly59767 in l_ly59767 %}
+                {
+                  "namespace": "ly59767",
+                  "key": {{ v_ly59767 | first | json }},
+                  "value": {{ v_ly59767 | last | json }}
+                },
+              {% endfor %}
+        
+              {% comment %}
+                Metafield Array
+              {% endcomment %}
+              {% assign l_ly59766 = product.metafields.ly59766 %}
+              {% for v_ly59766 in l_ly59766 %}
+                {
+                  "namespace": "ly59766",
+                  "key": {{ v_ly59766 | first | json }},
+                  "value": {{ v_ly59766 | last | json }}
+                },
+              {% endfor %}
+        
+      ]
+    }
+}

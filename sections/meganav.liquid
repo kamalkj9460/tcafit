@@ -1,0 +1,120 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{% for block in section.blocks %}
+  {% assign meganav_modifier = '' %}
+  {% if block.settings.enable_column_layout %}
+    {% assign meganav_modifier = 'has-columns' %}
+  {% endif %}
+
+  {% if block.settings.meganav_image %}
+    {% assign meganav_modifier = meganav_modifier | append: ' has-image' %}
+  {% endif %}
+
+  <div class="meganav {{ meganav_modifier }}" data-section-id='meganav' data-section-type="meganav" data-meganav-child="{{ block.settings.meganav_parent | handle }}" {{ block.shopify_attributes }}>
+    <div class="container">
+        {% for i in (1..4) %}
+          {% assign i = forloop.index %}
+          {% assign meganav_linklist = 'meganav_linklist_' | append: i %}
+          {% if block.settings[meganav_linklist] != blank %}
+          {% assign meganav_linklist_title = 'meganav_linklist_title_' | append: i %}
+          {% assign childlist = block.settings[meganav_linklist] %}
+
+              {% if linklists[childlist].title contains 'Explore' or linklists[childlist].title contains 'Shop by Activity' %}
+              <div class="grid__item medium-up--one-whole asdsfsafsf">
+                <div class="meganav_list">
+                  <h4 class="meganav__title">{% comment %}ly_code_replace_for_[ linklists[childlist].title ]_begin{% endcomment %}{% include 'ly-title' with linklists[childlist] %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h4>
+                  <ul class="meganav__navlist {% if linklists[childlist].title contains 'Innovations' %}innovation_meganav__navlist{% endif %}">
+                    {% for link in linklists[childlist].links %}
+                      {% assign sanitized_link_title = link.title | handleize %}
+                      <div class="grid__item grid--uniform medium-up--one-third thumbnail_containers">
+                        <a href="{{ link.url }}">
+                          <div class="innovation_thumbnails" style="background-image: url('{{ link.object.image | img_url: '250x250' }}');">
+                            <p class="link__title">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</p>
+                          </div>
+                        </a>
+                      </div>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% else %}
+              <div class="grid__item medium-up--one-third {{ linklists[childlist].title }}">
+                <div class="meganav_list">
+                  {% comment %}<h4 class="meganav__title">{% comment %}ly_code_replace_for_[ linklists[childlist].title ]_begin{% endcomment %}{% include 'ly-title' with linklists[childlist] %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h4>{% endcomment %}
+                  <ul class="meganav__navlist">
+                    {% for link in linklists[childlist].links %}
+                        <li class="meganav_list_items {% if forloop.first %}shop-all-item{% endif %}"><a href="{{ link.url }}" {% if link.title contains 'Sale' %}class="sale"{% endif %}>{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}    
+              </div>
+          {% endif %}
+        {% endfor %}
+
+        {% if block.settings.meganav_image %}
+      {% unless linklists[childlist].title contains 'Explore' %}
+          <div class="grid__item medium-up--two-thirds is-image">
+            <div class="meganav_list_image meganav__thumbnail" style="background-image: url('{{ block.settings.meganav_image | img_url: '600x600' }}');">
+              
+            </div>
+          </div>
+      {% endunless %}
+        {% endif %}
+      </div>
+  </div>
+{% endfor %}
+
+{% comment %}ly_asset_replace_for_[ 'meganav.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'meganav.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+
+{% schema %}
+  {
+    "name": "Mega Nav",
+    "settings": [
+      {
+        "type": "text",
+        "id": "meganav",
+        "label": "Heading",
+        "default": "Mega Nav"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "meganav_dropdown",
+        "name": "Dropdown",
+        "settings": [
+          {
+            "type": "text",
+            "id": "meganav_parent",
+            "label": "Parent menu",
+            "info": "Which menu item does this dropdown belong to?"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_column_layout",
+            "label": "Enable Column Layout",
+            "info": "Divide each menu into two columns. Recommended on long menus."
+          },
+          {
+            "type": "header",
+            "content": "Menu",
+            "info": "Leave empty to hide menu"
+          },
+          {
+            "type": "link_list",
+            "id": "meganav_linklist_1",
+            "label": "Menu 1"
+          },
+          {
+            "type": "header",
+            "content": "Featured Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "meganav_image",
+            "label": "Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

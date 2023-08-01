@@ -1,0 +1,123 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div class="product-modal">
+  <!-- Tab links -->
+  <div class="tab">
+    <button class="tablinks active" onclick="openCity(event, 'size-guide')" id="defaultOpen"><ly-as-12585216>Size Guide</ly-as-12585216></button>
+    <button class="tablinks" onclick="openCity(event, 'fit-guide')"><ly-as-12585217>Fit Guide</ly-as-12585217></button>
+  </div>
+
+  <!-- Tab content -->
+  <div id="size-guide" class="tabcontent">
+    {% if product.tags contains 'men' %}
+       <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.junior-size-guide.title ]_begin{% endcomment %}{% include 'ly-title' with pages.junior-size-guide %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+      {% comment %}ly_code_replace_for_[ pages.junior-size-guide.content ]_begin{% endcomment %}{% include 'ly-content' with pages.junior-size-guide %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+    {% endif %}
+
+    {% if product.tags contains 'women' %}
+      {% if product.type == "Sports Bras & Crops" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.sports-bras-crops-size-guide-women.title ]_begin{% endcomment %}{% include 'ly-title' with pages.sports-bras-crops-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.sports-bras-crops-size-guide-women.content ]_begin{% endcomment %}{% include 'ly-content' with pages.sports-bras-crops-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Shorts" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.shorts-size-guide-women.title ]_begin{% endcomment %}{% include 'ly-title' with pages.shorts-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.shorts-size-guide-women.content ]_begin{% endcomment %}{% include 'ly-content' with pages.shorts-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Compression" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.compression-base-layers-size-guide-women.title ]_begin{% endcomment %}{% include 'ly-title' with pages.compression-base-layers-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.compression-base-layers-size-guide-women.content ]_begin{% endcomment %}{% include 'ly-content' with pages.compression-base-layers-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Pullovers & Gilets" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.pullovers-gilets-size-guide-women.title ]_begin{% endcomment %}{% include 'ly-title' with pages.pullovers-gilets-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.pullovers-gilets-size-guide-women.content ]_begin{% endcomment %}{% include 'ly-content' with pages.pullovers-gilets-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Leggings" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.leggings-size-guide-women.title ]_begin{% endcomment %}{% include 'ly-title' with pages.leggings-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.leggings-size-guide-women.content ]_begin{% endcomment %}{% include 'ly-content' with pages.leggings-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Long Sleeve Tops" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.long-sleeve-tops-size-guide-women.title ]_begin{% endcomment %}{% include 'ly-title' with pages.long-sleeve-tops-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.long-sleeve-tops-size-guide-women.content ]_begin{% endcomment %}{% include 'ly-content' with pages.long-sleeve-tops-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Tanks & Tees" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.tanks-tees-size-guide-women.title ]_begin{% endcomment %}{% include 'ly-title' with pages.tanks-tees-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.tanks-tees-size-guide-women.content ]_begin{% endcomment %}{% include 'ly-content' with pages.tanks-tees-size-guide-women %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+    {% endif %}
+
+    {% comment %}{% if product.tags contains 'kid' %}
+      {% if product.type == "Shorts" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.shorts-size-guide-kid.title ]_begin{% endcomment %}{% include 'ly-title' with pages.shorts-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.shorts-size-guide-kid.content ]_begin{% endcomment %}{% include 'ly-content' with pages.shorts-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Compression & Base Layers" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.compression-base-layers-size-guide-kid.title ]_begin{% endcomment %}{% include 'ly-title' with pages.compression-base-layers-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.compression-base-layers-size-guide-kid.content ]_begin{% endcomment %}{% include 'ly-content' with pages.compression-base-layers-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Hoodies" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.hoodies-size-guide-kid.title ]_begin{% endcomment %}{% include 'ly-title' with pages.hoodies-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.hoodies-size-guide-kid.content ]_begin{% endcomment %}{% include 'ly-content' with pages.hoodies-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Jackets" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.jackets-size-guide-kid.title ]_begin{% endcomment %}{% include 'ly-title' with pages.jackets-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.jackets-size-guide-kid.content ]_begin{% endcomment %}{% include 'ly-content' with pages.jackets-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Bottoms" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.bottoms-size-guide-kid.title ]_begin{% endcomment %}{% include 'ly-title' with pages.bottoms-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.bottoms-size-guide-kid.content ]_begin{% endcomment %}{% include 'ly-content' with pages.bottoms-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Long Sleeve Tops" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.long-sleeve-tops-size-guide-kid.title ]_begin{% endcomment %}{% include 'ly-title' with pages.long-sleeve-tops-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.long-sleeve-tops-size-guide-kid.content ]_begin{% endcomment %}{% include 'ly-content' with pages.long-sleeve-tops-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+      {% if product.type == "Short Sleeve Tops" %}
+        <h1 class="h3 text-center">{% comment %}ly_code_replace_for_[ pages.short-sleeve-tops-size-guide-kid.title ]_begin{% endcomment %}{% include 'ly-title' with pages.short-sleeve-tops-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+        {% comment %}ly_code_replace_for_[ pages.short-sleeve-tops-size-guide-kid.content ]_begin{% endcomment %}{% include 'ly-content' with pages.short-sleeve-tops-size-guide-kid %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      {% endif %}
+    {% endif %}{% endcomment %}
+  </div>
+
+  <div id="fit-guide" class="tabcontent">
+    <div class="grid">
+      {% if product.tags contains 'men' %}
+        {% for link in linklists['fit-guide-men'].links %}
+          <div class="grid__item grid--uniform small--one-half medium-up--one-quarter fit-guide__item">
+            {% assign sanitized_fit_image = link.object.handle | prepend: 'page-' | append: '.jpg' %}
+            <img class="fit-guide_img" src="{{ sanitized_fit_image | file_img_url: 'large' }}"/>
+            <h4 class="text-center">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h4>
+            <p class="text-center">{% comment %}ly_code_replace_for_[ link.object.content ]_begin{% endcomment %}{% include 'ly-content' with link.object %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</p>
+          </div>
+        {% endfor %}
+      {% elsif product.tags contains 'women' %}
+        {% for link in linklists['fit-guide-women'].links %}
+          <div class="grid__item grid--uniform small--one-half medium-up--one-quarter fit-guide__item">
+            {% assign sanitized_fit_image = link.object.handle | prepend: 'page-' | append: '.jpg' %}
+            <img class="fit-guide_img" src="{{ sanitized_fit_image | file_img_url: 'large' }}"/>
+            <h4 class="text-center">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h4>
+            <p class="text-center">{% comment %}ly_code_replace_for_[ link.object.content ]_begin{% endcomment %}{% include 'ly-content' with link.object %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</p>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>

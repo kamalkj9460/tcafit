@@ -1,0 +1,42 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{% assign alt_image_src = false %}
+{% if product.images.size > 1 %}
+  {% assign alt_image_src = product.images[1] %}
+{% endif %}
+
+{% if alt_image_src %}
+  {% assign modifiers = modifiers | append: 'card--alt' %}
+{% endif %}
+
+{% unless grid_image_width %}
+  {%- assign grid_image_width = '450x' -%}
+{% endunless %}
+<div class="grid-view-item{% unless product.available %} product-price--sold-out grid-view-item--sold-out{% endunless %} product-card">
+  <a onclick="dataLayer.push({'event': 'select_item', 'selected_item_list_id':'{{ collection.id}}', 'selected_item_list_name': '{{ collection.title}}',  'selected_items': [{item_id: '{{ product.id }}', item_name: '{{ product.title| replace: '"'  , ' '   }}', price:{{ product.price| money_without_currency }}, 'item_list_id': '{{ collection.id}}', 'item_list_name': '{{ collection.title}}' }] });" class="grid-view-item__link" href="{{ product.url | within: collection }}">
+    {% if settings.match_height == true %}
+    <div class="grid_sizer">
+    {% endif %}
+    <div class="product-card-bkgd">
+      {% if alt_image_src %}
+        <div class="reveal">
+          <img class="grid-view-item__image" src="{{ product.images[0].src | img_url: grid_image_width }}" alt="{{ product.images[0].alt }}">
+          <img class="hidden" src="{{ alt_image_src | img_url: grid_image_width }}" alt="{{ product.images[0].alt }}">
+        </div>
+      {% else %}
+          <img class="grid-view-item__image" src="{{ product.images[0].src | img_url: grid_image_width }}" alt="{{ product.images[0].alt }}">
+      {% endif %}
+    </div>
+    {% if settings.match_height == true %}
+    </div>
+    {% endif %}
+    <div class="h4 grid-view-item__title text-center">{% comment %}ly_code_replace_for_[ product.title ]_begin{% endcomment %}{% include 'ly-title' with product %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</div>
+    {% if section.settings.show_vendor %}
+      <div class="grid-view-item__vendor">{% comment %}ly_code_replace_for_[ product.vendor ]_begin{% endcomment %}{% include 'ly-vendor' with product %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</div>
+    {% endif %}
+    {% if section.settings.show_price %}
+      <div class="grid-view-item__meta text-center">
+        {% include 'product-price' %}
+      </div>
+    {% endif %}
+  </a>
+</div>

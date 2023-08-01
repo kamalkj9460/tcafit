@@ -1,0 +1,180 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}<div class="page-width">
+  {% if section.settings.title != blank %}
+    <header class="section-header text-center">
+      <h2>{{ section.settings.title | escape }}</h2>
+    </header>
+  {% endif %}
+
+  {%- assign blog = blogs[section.settings.blog] -%}
+
+  {% unless blog.empty? %}
+    <div class="grid grid--uniform grid--blog">
+      {% for article in blog.articles limit: section.settings.post_limit %}
+        <div class="grid__item medium-up--one-third">
+          {% if article.image %}
+            <a href="{{ article.url }}" class="article__grid-image">
+              {% comment %}ly_code_replace_for_[ article | img_url: '345x' | img_tag: article.title ]_begin{% endcomment %}{% include 'ly-title' with article %}{{ article | img_url: '345x' | img_tag: ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+            </a>
+          {% endif %}
+
+          <div class="article__grid-meta{% if article.image %} article__grid-meta--has-image{% endif %}">
+            <h2 class="h3 article__title">
+              <a href="{{ article.url }}">{% comment %}ly_code_replace_for_[ article.title ]_begin{% endcomment %}{% include 'ly-title' with article %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+            </h2>
+
+            {% if section.settings.blog_show_author %}
+              <span class="article__author">{% comment %}ly_i18n_replace_for_[ 'blogs.article.by_author' | t: author: article.author ]_begin{% endcomment %}{% capture ly_template %}{{ 'blogs.article.by_author' | t: author: article.author }}{% endcapture %}{% include 'ly-static-string' with '12584989' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = article.author  %}{% assign ly_template = ly_template | replace: '[[author]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</span>
+            {% endif %}
+
+            {% if section.settings.blog_show_date %}
+              <span class="article__date">
+                {{ article.published_at | time_tag: format: 'month_day_year' }}
+              </span>
+            {% endif %}
+
+            <div class="rte article__grid-excerpt">
+              {% if article.excerpt.size > 0 %}
+                {% comment %}ly_code_replace_for_[ article.excerpt ]_begin{% endcomment %}{% include 'ly-excerpt' with article %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+              {% else %}
+                {% comment %}ly_code_replace_for_[ article.content | strip_html | truncate: 150 ]_begin{% endcomment %}{% include 'ly-content' with article %}{{ ly_translation | strip_html | truncate: 150 }}{% comment %}ly_code_replace_end{% endcomment %}
+              {% endif %}
+            </div>
+
+            {% if article.tags.size > 0 %}
+              <div class="article__tags rte">
+                {% for tag in article.tags %}
+                  <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="article__grid-tag">{{ tag }}</a>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <ul class="list--inline article__meta-buttons">
+              <li>
+                <a href="{{ article.url }}" class="btn btn--secondary btn--small">
+                  {% comment %}ly_i18n_replace_for_[ 'blogs.article.read_more' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'blogs.article.read_more' | t }}{% endcapture %}{% include 'ly-static-string' with '12584990' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+                </a>
+              </li>
+
+              {% if blog.comments_enabled? and article.comments_count > 0 %}
+                <li>
+                  <a href="{{ article.url }}#comments" class="btn btn--small btn--link">
+                    {% comment %}ly_i18n_replace_for_[ 'blogs.comments.comments_with_count' | t: count: article.comments_count ]_begin{% endcomment %}{% if article.comments_count  == 0 %}{% capture ly_template %}{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}{% endcapture %}{% include 'ly-static-string' with '12584992' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = article.comments_count  %}{% assign ly_template = ly_template | replace: '[[count]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% elsif article.comments_count  == 1 %}{% capture ly_template %}{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}{% endcapture %}{% include 'ly-static-string' with '12584991' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = article.comments_count  %}{% assign ly_template = ly_template | replace: '[[count]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% elsif article.comments_count  == 2 %}{% capture ly_template %}{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}{% endcapture %}{% include 'ly-static-string' with '12584992' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = article.comments_count  %}{% assign ly_template = ly_template | replace: '[[count]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% else %}{% capture ly_template %}{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}{% endcapture %}{% include 'ly-static-string' with '12584992' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% assign replacement = article.comments_count  %}{% assign ly_template = ly_template | replace: '[[count]]', replacement %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="grid grid--uniform grid--blog">
+      {% for i in (1..section.settings.post_limit) %}
+        <div class="grid__item medium-up--one-third">
+          <div class="article__grid-meta">
+            <h2 class="h3 article__title">
+              <a href="#">{% comment %}ly_i18n_replace_for_[ 'homepage.onboarding.blog_title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'homepage.onboarding.blog_title' | t }}{% endcapture %}{% include 'ly-static-string' with '12584995' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+            </h2>
+
+            {% if section.settings.blog_show_author %}
+              <span class="article__author">{% comment %}ly_i18n_replace_for_[ 'homepage.onboarding.blog_author' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'homepage.onboarding.blog_author' | t }}{% endcapture %}{% include 'ly-static-string' with '12584996' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</span>
+            {% endif %}
+
+            <div class="rte article__grid-excerpt">
+              {% comment %}ly_i18n_replace_for_[ 'homepage.onboarding.blog_excerpt' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'homepage.onboarding.blog_excerpt' | t }}{% endcapture %}{% include 'ly-static-string' with '12584997' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+            </div>
+
+            <ul class="list--inline article__meta-buttons">
+              <li>
+                <a href="{{ article.url }}" class="btn btn--secondary btn--small">
+                  {% comment %}ly_i18n_replace_for_[ 'blogs.article.read_more' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'blogs.article.read_more' | t }}{% endcapture %}{% include 'ly-static-string' with '12584990' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endunless %}
+
+  {% if section.settings.show_view_all %}
+    <hr class="hr--invisible"></hr>
+    <div class="text-center">
+      <a href="{{ blog.url }}" class="btn">
+        {% comment %}ly_i18n_replace_for_[ 'blogs.article.view_all' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'blogs.article.view_all' | t }}{% endcapture %}{% include 'ly-static-string' with '12584998' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Blog posts",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Blog posts"
+      },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "select",
+        "id": "post_limit",
+        "label": "Posts",
+        "default": "3",
+        "options": [
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "9",
+            "label": "9"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show 'View all' button",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog posts",
+        "category": "Blog",
+        "settings": {
+          "blog": "News",
+          "post_limit": "3"
+        }
+      }
+    ]
+  }
+{% endschema %}

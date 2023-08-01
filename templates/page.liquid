@@ -1,0 +1,13 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}<div class="page-width">
+  <div class="grid">
+    <div class="grid__item small--one-whole medium-up--eight-twelfths medium-up--push-two-twelfths">
+      <div class="section-header text-center">
+        <h1 class="h2 text-left">{% comment %}ly_code_replace_for_[ page.title ]_begin{% endcomment %}{% include 'ly-title' with page %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+      </div>
+
+      <div class="rte">
+        {% comment %}ly_code_replace_for_[ page.content ]_begin{% endcomment %}{% include 'ly-content' with page %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>

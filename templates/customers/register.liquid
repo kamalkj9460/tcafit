@@ -1,0 +1,43 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--one-half medium-up--push-one-quarter">
+
+      <div class="form-vertical">
+        {% form 'create_customer' %}
+
+          <h1 class="h2 text-center">{% comment %}ly_i18n_replace_for_[ 'customer.register.title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'customer.register.title' | t }}{% endcapture %}{% include 'ly-static-string' with '12585370' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</h1>
+
+          {{ form.errors | default_errors }}
+
+          <label for="FirstName">{% comment %}ly_i18n_replace_for_[ 'customer.register.first_name' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'customer.register.first_name' | t }}{% endcapture %}{% include 'ly-static-string' with '12585371' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</label>
+          <input type="text" name="customer[first_name]" id="FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autofocus placeholder="<ly-as-12585366>First name</ly-as-12585366>">
+
+          <label for="LastName">{% comment %}ly_i18n_replace_for_[ 'customer.register.last_name' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'customer.register.last_name' | t }}{% endcapture %}{% include 'ly-static-string' with '12585372' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</label>
+          <input type="text" name="customer[last_name]" id="LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} placeholder="<ly-as-12585367>Last name</ly-as-12585367>">
+
+          <label for="Email">{% comment %}ly_i18n_replace_for_[ 'customer.register.email' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'customer.register.email' | t }}{% endcapture %}{% include 'ly-static-string' with '12585373' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</label>
+          <input type="email" name="customer[email]" id="Email" class="{% if form.errors contains 'email' %} input--error{% endif %}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off" placeholder="<ly-as-12585368>Email</ly-as-12585368>">
+
+          <label for="CreatePassword">{% comment %}ly_i18n_replace_for_[ 'customer.register.password' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'customer.register.password' | t }}{% endcapture %}{% include 'ly-static-string' with '12585374' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</label>
+          <input type="password" name="customer[password]" id="CreatePassword" class="{% if form.errors contains 'password' %} input--error{% endif %}" placeholder="<ly-as-12585369>Password</ly-as-12585369>">
+
+        <!-- Newsletter consent checkbox start -->
+          <table style="padding: 0px 0px 10px 0px; margin: 0px; border-collapse: collapse; border: none;">
+            <tr style="padding: 0px 0px 10px 0px; margin: 0px; border: none;"><td width="25" style="padding: 0px 0px 10px 0px; margin: 0px; border: none;">
+            <input type="hidden" name="customer[accepts_marketing]" value="false" />
+            <input type="checkbox" name="customer[accepts_marketing]" /></td>
+            <td style="padding: 0px 0px 10px 0px; margin: 0px; border: none;">
+            <label for="accepts-marketing" style="color: black">Sign up for exclusive offers and news via text messages and/or email.</label></td></tr>
+          </table>
+        <!-- Newsletter consent checkbox end -->
+        
+          <p class="text-center">
+            <input type="submit" value="{% comment %}ly_i18n_replace_for_[ 'customer.register.submit' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'customer.register.submit' | t }}{% endcapture %}{% include 'ly-static-string' with '12585375' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}" class="btn btn--secondary btn_account">
+          </p>
+
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,234 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div class="page-width-large" data-section-id="{{ section.id }}" data-section-type="cart-template">
+
+  {% if cart.item_count > 0 %}
+    <div class="section-header text-center">
+      <h1 class="h2 text-left">{% comment %}ly_i18n_replace_for_[ 'cart.general.title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.title' | t }}{% endcapture %}{% include 'ly-static-string' with '12584959' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</h1>
+    </div>
+
+    <form action="/cart{% comment %}ly_checkout_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign checkout_code = shop.metafields.language_codes[language] %}{% if checkout_code %}{% assign checkout_code = '?locale=' | append: checkout_code %}{{ checkout_code }}{% endif %}{% comment %}ly_checkout_end{% endcomment %}" method="post" novalidate class="cart">
+      <div class="grid">
+        <div class="grid__item medium-up--one-whole large-up--four-sixths">
+              {% for item in cart.items %}
+                <div class="cart__container">
+                  <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart__remove_cross medium-up--hide" >{% include 'icon-close' %}</a>
+                  <div class="cart__image-wrapper">
+                    <a href="{{ item.url | within: collections.all }}">
+                      <div class="product-card-bkgd">
+                        <img class="cart__image" src="{{ item | img_url: '120x' }}" alt="{% comment %}ly_code_replace_for_[ item.title | escape ]_begin{% endcomment %}{% include 'ly-title' with item %}{{ ly_translation | escape }}{% comment %}ly_code_replace_end{% endcomment %}">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="cart__meta small--text-left">
+                    <div class="list-view-item__title">
+                      <a href="{{ item.url }}">
+                        {% comment %}ly_code_replace_for_[ item.product.title ]_begin{% endcomment %}{% include 'ly-title' with item.product %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}
+                        {% if item.quantity > 1 %}
+                          <span class="large-up--hide"><span class="visually-hidden">{% comment %}ly_i18n_replace_for_[ 'cart.label.quantity' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.label.quantity' | t }}{% endcapture %}{% include 'ly-static-string' with '12584960' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</span><ly-as-12584948>(x</ly-as-12584948>{{ item.quantity }})</span>
+                        {% endif %}
+                      </a>
+                    </div>
+                    {% unless item.variant.title contains 'Default' %}
+                      <div class="cart__meta-text">
+                        {% for option in item.product.options %}
+                          {{ item.variant.options[forloop.index0] }}</br>
+                        {% endfor %}
+                      </div>
+                    {% endunless %}
+
+                    {%- assign property_size = item.properties | size -%}
+                    {% if property_size > 0 %}
+                      <div class="cart__meta-text">
+                        {% for p in item.properties %}
+                          {% unless p.last == blank %}
+                            {{ p.first }}:
+                            {% if p.last contains '/uploads/' %}
+                              <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                            {% else %}
+                              {{ p.last }}
+                            {% endif %}
+                          {% endunless %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <div class="cart__update-wrapper text-right">
+                    <div class="cart--quantity-container_full">
+                      <div class="cart--quantity-container">
+                        <button class='qtyminus' field='updates_{{ product.id }}'>{% include 'icon-minus' %}</button>
+                        <input type="number" name="updates[]" field='updates_{{ product.id }}' id="Quantity" value="{{ item.quantity }}" min="0" class="product-form__input" pattern="[0-9]*"/>
+                        <button class='qtyplus' field='updates_{{ product.id }}'>{% include 'icon-plus' %}</button>
+                      </div>
+                      <br>
+                      <div class="remove_btn">
+                        <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="btn btn--small btn--secondary cart__remove" onclick="dataLayer.push({'event': 'remove_from_cart', items: [{item_id: {{ item.variant.id }}, price:{{ item.variant.price| money_without_currency }}, quantity:{{ item.quantity }} }]});" >{% comment %}ly_i18n_replace_for_[ 'cart.general.remove' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.remove' | t }}{% endcapture %}{% include 'ly-static-string' with '12584961' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cart__price-wrapper text-right">
+                    {% if item.original_line_price != item.line_price %}
+                      <div class="cart-item__original-price"><s>{% assign geolizr_price =  item.original_line_price  %}{{ item.original_line_price | money | prepend: geolizr_prepend_code | append: geolizr_append_code }}</s></div>
+                    {% endif %}
+
+                    <div>
+                      {% assign geolizr_price =  item.line_price  %}{{ item.line_price | money | prepend: geolizr_prepend_code | append: geolizr_append_code }}
+                    </div>
+
+                    {% for discount in item.discounts %}
+                      <div class="cart-item__discount">{% comment %}ly_code_replace_for_[ discount.title ]_begin{% endcomment %}{% include 'ly-title' with discount %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+        
+        <div class="desktop_trustpilot">
+        <!-- TrustBox widget - List --> <div class="trustpilot-widget" data-locale="en-GB" data-template-id="539ad60defb9600b94d7df2c" data-businessunit-id="5bd852a183c95e0001f6f170" data-style-height="500px" data-style-width="100%" data-theme="light" data-stars="1,2,3,4,5"> <a href="https://uk.trustpilot.com/review/tca.fit" target="_blank"><ly-as-12902726>Trustpilot</ly-as-12902726></a> </div> <!-- End TrustBox widget -->
+        </div>
+        <div class="mobile_trustpilot">
+       	<!-- TrustBox widget - Micro TrustScore --> <div class="trustpilot-widget" data-locale="en-GB" data-template-id="5419b637fa0340045cd0c936" data-businessunit-id="5bd852a183c95e0001f6f170" data-style-height="20px" data-style-width="100%" data-theme="light" data-stars="1,2,3,4,5"> <a href="https://uk.trustpilot.com/review/tca.fit" target="_blank"><ly-as-12902726>Trustpilot</ly-as-12902726></a> </div> <!-- End TrustBox widget --> 
+       
+        </div>
+
+        </div>
+
+        <div class="grid__item medium-up--one-whole large-up--two-sixths cart__footer">
+          <div class="grid">
+            <div class="grid__item small--text-center{% if section.settings.cart_notes_enable %} medium-up--one-half{% endif %}">
+                  <div class="order-overview">
+                <h5 class="text-center"><ly-as-12584957>Order Overview</ly-as-12584957></h5>
+                <div class="cart__subtotal-summary text-center">
+                  <span class="h3 cart__subtotal">{% assign geolizr_price =  cart.total_price  %}{{ cart.total_price | money | prepend: geolizr_prepend_code | append: geolizr_append_code }}</span>
+                </div>
+                {% if cart.total_discounts > 0 %}
+                  <div class="cart__savings">
+                    {% comment %}ly_i18n_replace_for_[ 'cart.general.savings' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.savings' | t }}{% endcapture %}{% include 'ly-static-string' with '12584962' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+                    <span class="cart__savings-amount">{% assign geolizr_price =  cart.total_discounts  %}{{ cart.total_discounts | money | prepend: geolizr_prepend_code | append: geolizr_append_code }}</span>
+                  </div>
+                {% endif %}
+
+                <input type="submit" name="checkout" class="btn hero__btn cart__checkout" value="{% comment %}ly_i18n_replace_for_[ 'cart.general.checkout' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.checkout' | t }}{% endcapture %}{% include 'ly-static-string' with '12584963' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+                <input type="submit" name="update" class="btn btn--secondary_stroke hero__btn small--hide cart__update cart__update--large" value="{% comment %}ly_i18n_replace_for_[ 'cart.general.update' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.update' | t }}{% endcapture %}{% include 'ly-static-string' with '12584964' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}">
+
+                {% if section.settings.enable_shipping_notice %}
+                  <div class="delivery-note">
+                    <p class="free-shipping-notice text-center">{{ section.settings.shipping_notice }}</p>
+                  </div>
+                {% endif %}
+                {% comment %}<div class="cart__shipping">{% comment %}ly_i18n_replace_for_[ 'cart.general.shipping_at_checkout' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.shipping_at_checkout' | t }}{% endcapture %}{% include 'ly-static-string' with '12584965' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</div>{% endcomment %}
+
+              </div>
+              <div class="option-field">
+                <p class="cart-attribute__field">
+                  <label><ly-as-12584949>How did you hear about TCA?</ly-as-12584949></label>
+                  <input id="friends" type="radio" name="attributes[How did you hear about TCA?]" value="<ly-as-12584950>Friends/Family</ly-as-12584950>"{% if cart.attributes["How did you hear about TCA?"] == "Friends/Family" %} checked{% endif %}>
+                  <label for="friends" class="option-value"><ly-as-12584950>Friends/Family</ly-as-12584950></label><br>
+                  <input id="newspaper" type="radio" name="attributes[How did you hear about TCA?]" value="<ly-as-12584951>Newspaper/Magazine</ly-as-12584951>"{% if cart.attributes["How did you hear about TCA?"] == "Newspaper/Magazine" %} checked{% endif %}>
+                  <label for="newspaper" class="option-value"><ly-as-12584951>Newspaper/Magazine</ly-as-12584951></label><br>
+                  <input id="google" type="radio" name="attributes[How did you hear about TCA?]" value="<ly-as-12584952>Google Search</ly-as-12584952>"{% if cart.attributes["How did you hear about TCA?"] == "Google Search" %} checked{% endif %}>
+                  <label for="google" class="option-value"><ly-as-12584952>Google Search</ly-as-12584952></label><br>
+                  <input id="instagram" type="radio" name="attributes[How did you hear about TCA?]" value="<ly-as-12584953>Instagram</ly-as-12584953>"{% if cart.attributes["How did you hear about TCA?"] == "Instagram" %} checked{% endif %}>
+                  <label for="instagram" class="option-value"><ly-as-12584953>Instagram</ly-as-12584953></label><br>
+                  <input id="facebook" type="radio" name="attributes[How did you hear about TCA?]" value="<ly-as-12584954>Facebook</ly-as-12584954>"{% if cart.attributes["How did you hear about TCA?"] == "Facebook" %} checked{% endif %}>
+                  <label for="facebook" class="option-value"><ly-as-12584954>Facebook</ly-as-12584954></label><br>
+                  <input id="other" type="radio" name="attributes[How did you hear about TCA?]" value="<ly-as-12584955>Other Marketplace</ly-as-12584955>"{% if cart.attributes["How did you hear about TCA?"] == "Other Marketplace" %} checked{% endif %}>
+                  <label for="other" class="option-value"><ly-as-12584955>Other Marketplace</ly-as-12584955></label><br>
+                </p>
+                <p class="cart-attribute__field">
+                  <label for="how-did-you-hear-about-us"><ly-as-12584956>How did you hear about us?</ly-as-12584956></label>
+                  <input id="how-did-you-hear-about-us" class="option-value text-field" type="text" name="attributes[How did you hear about us?]" value="{{ cart.attributes["How did you hear about us?"] }}" placeholder="<ly-as-12584958>Other, please specify</ly-as-12584958>">
+                </p>
+              </div>
+
+          
+
+              {% if section.settings.enable_payment_icons %}
+                <div class="payment-icons">
+                  <div class="grid icons_flex">
+                    <div class="grid__item medium-up--one-quarter">
+                      <img class="payment_icon" src="{% comment %}ly_asset_replace_for_[ 'paypal_icon.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'paypal_icon.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}">
+                    </div>
+                    <div class="grid__item medium-up--one-quarter">
+                      <img class="payment_icon" src="{% comment %}ly_asset_replace_for_[ 'mastercard_icon.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'mastercard_icon.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}">
+                    </div>
+                    <div class="grid__item medium-up--one-quarter">
+                      <img class="payment_icon" src="{% comment %}ly_asset_replace_for_[ 'visa_icon.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'visa_icon.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}">
+                    </div>
+                    <div class="grid__item medium-up--one-quarter">
+                      <img class="payment_icon" src="{% comment %}ly_asset_replace_for_[ 'americanExpress_icon.png' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'americanExpress_icon.png' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}">
+                    </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          {% comment %}{% if section.settings.cart_notes_enable %}
+          <div class="grid">
+            <div class="grid__item medium-up--one-half cart-note">
+              <label for="CartSpecialInstructions" class="cart-note__label small--text-center">{% comment %}ly_i18n_replace_for_[ 'cart.general.note' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.note' | t }}{% endcapture %}{% include 'ly-static-string' with '12584966' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</label>
+              <textarea name="note" id="CartSpecialInstructions" class="cart-note__input">{{ cart.note }}</textarea>
+            </div>
+          </div>
+          {% endif %}{% endcomment %}
+        </div>
+      </div>
+    </form>
+  {% else %}
+    <div class="empty-page-content text-center">
+      <h1>{% comment %}ly_i18n_replace_for_[ 'cart.general.title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.title' | t }}{% endcapture %}{% include 'ly-static-string' with '12584959' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</h1>
+      <p>{% comment %}ly_i18n_replace_for_[ 'cart.general.empty' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.empty' | t }}{% endcapture %}{% include 'ly-static-string' with '12584967' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</p>
+      <a href="/" class="btn btn--has-icon-after">{% comment %}ly_i18n_replace_for_[ 'general.404.link' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'general.404.link' | t }}{% endcapture %}{% include 'ly-static-string' with '12584968' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}{% include 'icon-arrow-right' %}</a>
+    </div>
+  {% endif %}
+</div>
+</div>
+
+<div class="cross-sell-section">
+  <div class="page-width-large">
+    <div class="grid__item small--one-whole medium-up--one-whole">
+      {% include 'cross-sell' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Cart page",
+    "settings": [
+      {
+         "type": "header",
+         "content": "Shipping notice text"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_shipping_notice",
+        "label": "Enable shipping notice",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "shipping_notice",
+        "label": "Shipping notice text",
+        "default": "Free UK delivery on all orders"
+      },
+      {
+         "type": "header",
+         "content": "Payment icons"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_icons",
+        "label": "Enable payment icons",
+        "default": true
+      },
+      {
+         "type": "header",
+         "content": "Recommended products section"
+      },
+      {
+        "type": "text",
+        "id": "cross_sell_title",
+        "label": "Recommended products title",
+        "default": "You might also like"
+      }
+    ]
+  }
+{% endschema %}

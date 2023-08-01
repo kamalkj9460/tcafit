@@ -1,0 +1,13 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<ul class="site-nav list--inline {{ nav_alignment }}" id="SiteNav">
+
+  {% for link in linklists[section.settings.main_linklist].links %}
+  {%- assign child_list_handle = link.title | handleize -%}
+  <li {% if link.active %}class="site-nav--active"{% endif %} data-meganav-parent="{{ link.title | handle }}">
+    <a href="{{ link.url }}" class="site-nav__link site-nav__link--main">{% comment %}ly_code_replace_for_[ link.title ]_begin{% endcomment %}{% include 'ly-title' with link %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</a>
+  </li>
+  {% endfor %}
+
+</ul>
+
+

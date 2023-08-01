@@ -1,0 +1,32 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{% comment %}
+  The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+{% endcomment %}
+
+{% section 'collection-template' %}
+{% if collection.metafields.stamped.reviews_count and collection.metafields.stamped.reviews_count != "0" %} 
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{langify_shop_name}}",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "bestRating": "5",
+    "worstRating": "1",
+    "reviewCount": "{% comment %}ly_code_replace_for_[ collection.metafields.stamped.reviews_count ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign ns = language | append: 'stamped' %}{% assign key = 'reviews_count' %}{% if collection.metafields[ns][key] %}{% assign ly_translation = collection.metafields[ns][key] %}{% else %}{% assign ly_translation =  collection.metafields.stamped.reviews_count  %}{% endif %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}",
+    "ratingValue": "{% comment %}ly_code_replace_for_[ collection.metafields.stamped.reviews_average | round:2 ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign ns = language | append: 'stamped' %}{% assign key = 'reviews_average' %}{% if collection.metafields[ns][key] %}{% assign ly_translation = collection.metafields[ns][key] %}{% else %}{% assign ly_translation =  collection.metafields.stamped.reviews_average | round:2  %}{% endif %}{{ ly_translation | round:2 }}{% comment %}ly_code_replace_end{% endcomment %}"
+  },
+  "image": "https://cdn.shopify.com/s/files/1/0009/9123/2065/files/WHITE_slogan1.png?15299189220284589605",
+  "priceRange": "£10-£30",
+  "address": {
+  	"addressLocality": "{{shop.address.city}}",
+    "addressRegion": "{{shop.address.province_code}}",
+    "streetAddress": "{{shop.address.street}}",
+    "postalCode": "{{shop.address.zip}}",
+    "addressCountry": "{{shop.address.country}}"
+    },
+    "telephone": "{{shop.phone}}"
+}
+</script>
+{% endif %}

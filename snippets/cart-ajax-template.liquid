@@ -1,0 +1,20 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}{% comment %}
+	All templating is done in cart-ajax.js.liquid
+{% endcomment %}
+{% if settings.use_ajax_cart %}
+
+<div id="cart" class="cart-ajax" data-cart-total="{{ cart.item_count }}" >
+	<div class="cart-ajax__header">
+		<h6><ly-as-12585090>Shopping Bag</ly-as-12585090></h6>
+	</div>
+	<div class="cart-ajax__list"></div>
+	<div class="cart-ajax__tools">
+		<h5 class="cart-ajax--total">
+			<span class="cart-ajax--total-title">{% comment %}ly_i18n_replace_for_[ 'cart.label.total' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.label.total' | t }}{% endcapture %}{% include 'ly-static-string' with '12585092' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</span>
+			<span class="cart-ajax--total-price">{{ cart.total_price }}</span>
+		</h5>
+		<a href="/checkout{% comment %}ly_checkout_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign checkout_code = shop.metafields.language_codes[language] %}{% if checkout_code %}{% assign checkout_code = '?locale=' | append: checkout_code %}{{ checkout_code }}{% endif %}{% comment %}ly_checkout_end{% endcomment %}" class="btn">{% comment %}ly_i18n_replace_for_[ 'cart.general.checkout' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'cart.general.checkout' | t }}{% endcapture %}{% include 'ly-static-string' with '12585093' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</a>
+		<a href="/cart" class="btn btn--secondary_stroke"><ly-as-12585091>View Bag</ly-as-12585091></a>
+	</div>
+</div>
+{% endif %}

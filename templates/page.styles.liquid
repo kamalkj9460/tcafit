@@ -1,0 +1,411 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}<style>
+/* Styleguide styles */
+.docs-title {
+  opacity: 0.5;
+  font-style: italic;
+  margin-left: -20px;
+}
+</style>
+
+<div class="page-width">
+  <h1>{% comment %}ly_code_replace_for_[ page.title ]_begin{% endcomment %}{% include 'ly-title' with page %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</h1>
+
+  <p><ly-as-12585485>This page is here to show off styles for standard page elements such as typography, form elements, and icons. These are hard coded in an alternate page template file, named</ly-as-12585485> <code><ly-as-12585486>page.styles.liquid</ly-as-12585486></code>.</p>
+
+  <hr>
+
+  <h2 class="docs-title"><ly-as-12585487>Typography</ly-as-12585487></h2>
+
+  <h1><ly-as-12585488>Heading one</ly-as-12585488></h1>
+  <h2><ly-as-12585489>Heading two</ly-as-12585489></h2>
+  <h3><ly-as-12585490>Heading three</ly-as-12585490></h3>
+  <h4><ly-as-12585491>Heading four</ly-as-12585491></h4>
+  <h5><ly-as-12585492>Heading five</ly-as-12585492></h5>
+  <h6><ly-as-12585493>Heading six</ly-as-12585493></h6>
+
+  <h4 class="docs-title"><ly-as-12585494>RTE headings</ly-as-12585494></h4>
+  <div class="rte">
+    <h1><ly-as-12585495>RTE heading one</ly-as-12585495></h1>
+    <p><ly-as-12585496>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</ly-as-12585496></p>
+    <h2><ly-as-12585497>RTE heading two</ly-as-12585497></h2>
+    <p><ly-as-12585496>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</ly-as-12585496></p>
+    <h3><ly-as-12585498>RTE heading three</ly-as-12585498></h3>
+    <p><ly-as-12585496>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</ly-as-12585496></p>
+    <h4><ly-as-12585499>RTE heading four</ly-as-12585499></h4>
+    <p><ly-as-12585496>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</ly-as-12585496></p>
+    <h5><ly-as-12585500>RTE heading five</ly-as-12585500></h5>
+    <p><ly-as-12585496>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</ly-as-12585496></p>
+    <h6><ly-as-12585501>RTE heading six</ly-as-12585501></h6>
+  </div>
+
+  <h4 class="docs-title"><ly-as-12585502>Paragraphs</ly-as-12585502></h4>
+  <p><ly-as-12585503>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.</ly-as-12585503></p>
+  <p><ly-as-12585504>Suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</ly-as-12585504></p>
+
+  <h4 class="docs-title"><ly-as-12585505>Type styles</ly-as-12585505></h4>
+  <ul>
+    <li><a href="#"><ly-as-12585506>Link</ly-as-12585506></a></li>
+    <li><strong><ly-as-12585507>Strong</ly-as-12585507></strong></li>
+    <li><em><ly-as-12585508>Emphasis</ly-as-12585508></em></li>
+    <li><a href="#"><ly-as-12585509>Inline link</ly-as-12585509></a></li>
+    <li><span style="text-decoration: line-through;"><ly-as-12585510>Strike</ly-as-12585510></span></li>
+    <li><sup><ly-as-12585511>Sup</ly-as-12585511></sup></li>
+  </ul>
+
+  <h4 class="docs-title"><ly-as-12585512>Blockquotes</ly-as-12585512></h4>
+  <div class="rte">
+    <blockquote>
+      <p><ly-as-12585513>Eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</ly-as-12585513></p>
+      <cite><ly-as-12585514>The author of the quote</ly-as-12585514></cite>
+    </blockquote>
+  </div>
+
+  <h4 class="docs-title"><ly-as-12585515>Lists</ly-as-12585515></h4>
+  <div class="rte">
+    <table>
+      <tbody>
+      <tr>
+        <td width="40%">
+          <h6><code><ly-as-12585516>ul</ly-as-12585516></code> <ly-as-12585517>(default)</ly-as-12585517></h6>
+        </td>
+        <td>
+          <ul>
+            <li><ly-as-12585518>One</ly-as-12585518></li>
+            <li><ly-as-12585519>Two</ly-as-12585519></li>
+            <li><ly-as-12585520>Three</ly-as-12585520></li>
+            <li><ly-as-12585521>Four</ly-as-12585521></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h6><ly-as-12585522>Numeric bullet</ly-as-12585522> <code><ly-as-12585523>ol</ly-as-12585523></code> <ly-as-12585517>(default)</ly-as-12585517></h6>
+        </td>
+        <td>
+          <ol>
+            <li><ly-as-12585518>One</ly-as-12585518></li>
+            <li><ly-as-12585519>Two</ly-as-12585519></li>
+            <li><ly-as-12585520>Three</ly-as-12585520></li>
+            <li><ly-as-12585521>Four</ly-as-12585521></li>
+          </ol>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h6><ly-as-12585524>Inline list</ly-as-12585524> <code><ly-as-12585516>ul</ly-as-12585516></code></h6>
+          <code><ly-as-12585525>.list--inline</ly-as-12585525></code></td>
+        <td>
+          <ul class="list--inline">
+            <li><ly-as-12585518>One</ly-as-12585518></li>
+            <li><ly-as-12585519>Two</ly-as-12585519></li>
+            <li><ly-as-12585520>Three</ly-as-12585520></li>
+            <li><ly-as-12585521>Four</ly-as-12585521></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h6><ly-as-12585526>Child lists (to match the RTE styles)</ly-as-12585526></h6>
+        </td>
+        <td>
+          <ul>
+            <li><ly-as-12585518>One</ly-as-12585518></li>
+            <li><ly-as-12585519>Two</ly-as-12585519></li>
+            <li><ly-as-12585527>Three, with child list</ly-as-12585527>
+              <ul>
+                <li><ly-as-12585528>First sub item</ly-as-12585528></li>
+                <li><ly-as-12585529>Second sub item</ly-as-12585529></li>
+                <li><ly-as-12585530>Third sub item, with child list</ly-as-12585530>
+                  <ul>
+                    <li><ly-as-12585531>Third level item</ly-as-12585531></li>
+                    <li><ly-as-12585532>Another third level item</ly-as-12585532></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><ly-as-12585521>Four</ly-as-12585521></li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <h2 class="docs-title"><ly-as-12585533>Responsive tables</ly-as-12585533></h2>
+
+  <table class="responsive-table">
+    <thead>
+      <tr>
+        <th><ly-as-12585534>Order</ly-as-12585534></th>
+        <th><ly-as-12585535>Date</ly-as-12585535></th>
+        <th><ly-as-12585536>Payment Status</ly-as-12585536></th>
+        <th><ly-as-12585537>Fulfillment Status</ly-as-12585537></th>
+        <th><ly-as-12585538>Total</ly-as-12585538></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Order">#1001</td>
+        <td data-label="Date"><ly-as-12585539>December 22, 2015</ly-as-12585539></td>
+        <td data-label="Payment Status"><ly-as-12585540>Authorized</ly-as-12585540></td>
+        <td data-label="Fulfillment Status"><ly-as-12585541>Unfulfilled</ly-as-12585541></td>
+        <td data-label="Total">$43.03</td>
+      </tr>
+      <tr>
+        <td data-label="Order">#1002</td>
+        <td data-label="Date"><ly-as-12585542>December 23, 2015</ly-as-12585542></td>
+        <td data-label="Payment Status"><ly-as-12585540>Authorized</ly-as-12585540></td>
+        <td data-label="Fulfillment Status"><ly-as-12585541>Unfulfilled</ly-as-12585541></td>
+        <td data-label="Total">$44.03</td>
+      </tr>
+      <tr>
+        <td data-label="Order">#1003</td>
+        <td data-label="Date"><ly-as-12585543>December 24, 2015</ly-as-12585543></td>
+        <td data-label="Payment Status"><ly-as-12585540>Authorized</ly-as-12585540></td>
+        <td data-label="Fulfillment Status"><ly-as-12585541>Unfulfilled</ly-as-12585541></td>
+        <td data-label="Total">$45.03</td>
+      </tr>
+      <tr>
+        <td data-label="Order">#1004</td>
+        <td data-label="Date"><ly-as-12585544>December 25, 2015</ly-as-12585544></td>
+        <td data-label="Payment Status"><ly-as-12585540>Authorized</ly-as-12585540></td>
+        <td data-label="Fulfillment Status"><ly-as-12585541>Unfulfilled</ly-as-12585541></td>
+        <td data-label="Total">$46.03</td>
+      </tr>
+      <tr>
+        <td data-label="Order">#1005</td>
+        <td data-label="Date"><ly-as-12585545>December 26, 2015</ly-as-12585545></td>
+        <td data-label="Payment Status"><ly-as-12585540>Authorized</ly-as-12585540></td>
+        <td data-label="Fulfillment Status"><ly-as-12585541>Unfulfilled</ly-as-12585541></td>
+        <td data-label="Total">$47.03</td>
+      </tr>
+      <tr>
+        <td data-label="Order">#1006</td>
+        <td data-label="Date"><ly-as-12585546>December 27, 2015</ly-as-12585546></td>
+        <td data-label="Payment Status"><ly-as-12585540>Authorized</ly-as-12585540></td>
+        <td data-label="Fulfillment Status"><ly-as-12585541>Unfulfilled</ly-as-12585541></td>
+        <td data-label="Total">$48.03</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2 class="docs-title"><ly-as-12585547>Forms</ly-as-12585547></h2>
+
+  <h4 class="docs-title"><ly-as-12585548>Default form elements</ly-as-12585548></h4>
+
+  <form>
+    <label for="textHorizontal1"><ly-as-12585549>Horizontal Label</ly-as-12585549></label>
+    <input type="text" id="textHorizontal1" placeholder="<ly-as-12585621>Input 1</ly-as-12585621>">
+    <label for="textHorizontal2"><ly-as-12585550>Horizontal Label 2</ly-as-12585550></label>
+    <input type="text" id="textHorizontal2" placeholder="<ly-as-12585622>Input 2</ly-as-12585622>">
+
+    <select id="selectHorizontal1">
+      <option value="0"><ly-as-12585551>-- Choose --</ly-as-12585551></option>
+      <option value="1"><ly-as-12585552>Option 1</ly-as-12585552></option>
+      <option value="2"><ly-as-12585553>Option 2</ly-as-12585553></option>
+      <option value="3"><ly-as-12585554>Option 3</ly-as-12585554></option>
+    </select>
+
+    <input type="checkbox" id="checkInline">
+    <label for="checkInline" class="inline"><ly-as-12585555>Checkbox Label</ly-as-12585555></label>
+  </form>
+
+  <h4 class="docs-title"><ly-as-12585556>Invisible labels</ly-as-12585556></h4>
+
+  <p><ly-as-12585557>Add a class of</ly-as-12585557> <code><ly-as-12585558>label--hidden</ly-as-12585558></code> <ly-as-12585559>to a label to visually hide it, while keeping it accessible to screen readers. Use the</ly-as-12585559> <code><ly-as-12585560>placeholder</ly-as-12585560></code> <ly-as-12585561>attribute as your visible label.</ly-as-12585561></p>
+  <p><small><strong><ly-as-12585562>Note:</ly-as-12585562></strong> <ly-as-12585563>The</ly-as-12585563> <code><ly-as-12585560>placeholder</ly-as-12585560></code> <ly-as-12585564>attribute only works in IE10+, so invisible labels are disabled in IE9 and below.</ly-as-12585564></small></p>
+
+  <label for="testInvisibleLabel1" class="label--hidden"><ly-as-12585565>First Name</ly-as-12585565></label>
+  <input type="text" id="testInvisibleLabel1" name="testInvisibleLabel1" placeholder="<ly-as-12585565>First Name</ly-as-12585565>">
+  <label for="testInvisibleLabel2" class="label--hidden"><ly-as-12585566>Last Name</ly-as-12585566></label>
+  <input type="text" id="testInvisibleLabel2" name="testInvisibleLabel2" placeholder="<ly-as-12585566>Last Name</ly-as-12585566>">
+  <label for="testInvisibleLabel3" class="label--hidden"><ly-as-12585567>Email</ly-as-12585567></label>
+  <input type="text" id="testInvisibleLabel3" name="testInvisibleLabel3" placeholder="<ly-as-12585567>Email</ly-as-12585567>">
+
+  <hr>
+
+  <h4 class="docs-title"><ly-as-12585568>Vertical forms (customer, contact, etc)</ly-as-12585568></h4>
+  <p><ly-as-12585569>No styles for this exist in Slate, but are used in most themes. Style elements inside a form/div with class `form-vertical` to see your styles here.</ly-as-12585569></p>
+  <p><ly-as-12585570>You cannot add a class directly to most liquid form elements (e.g.</ly-as-12585570> <code><ly-as-12811575>{% raw %}{% form 'contact' %}{% endraw %}</ly-as-12811575></code><ly-as-12585571>). Instead, wrap the form in a div with the class</ly-as-12585571> <code><ly-as-12585572>.form-vertical</ly-as-12585572></code> <ly-as-12585573>to achieve the same effect.</ly-as-12585573></p>
+
+  <form class="form-vertical">
+    <label for="text1"><ly-as-12585574>Text Field</ly-as-12585574></label>
+    <input type="text" id="text1">
+
+    <label for="text2"><ly-as-12585575>Placeholder</ly-as-12585575></label>
+    <input type="text" id="text2" placeholder="<ly-as-12585623>Placeholder text</ly-as-12585623>">
+
+    <label for="text3"><ly-as-12585576>Disabled Field</ly-as-12585576></label>
+    <input type="text" id="text3" disabled="disabled">
+
+    <label for="text4"><ly-as-12585577>Label</ly-as-12585577></label>
+    <input type="text" id="text4">
+
+    <label for="text5" class="error"><ly-as-12585578>Text Field (Error)</ly-as-12585578></label>
+    <input type="text" id="text5" class="error" value="<ly-as-12585620>Invalid Entry</ly-as-12585620>">
+
+    <label for="select1"><ly-as-12585579>Select Field</ly-as-12585579></label>
+    <select id="select1">
+      <option value="0"><ly-as-12585551>-- Choose --</ly-as-12585551></option>
+      <option value="1"><ly-as-12585552>Option 1</ly-as-12585552></option>
+      <option value="2"><ly-as-12585553>Option 2</ly-as-12585553></option>
+      <option value="3"><ly-as-12585554>Option 3</ly-as-12585554></option>
+    </select>
+
+    <fieldset>
+      <legend><ly-as-12585580>Checkboxes</ly-as-12585580></legend>
+      <input type="checkbox" id="check1">
+      <label for="check1" class="inline"><ly-as-12585581>Checkbox Field</ly-as-12585581></label><br>
+      <input type="checkbox" id="check2">
+      <label for="check2" class="inline"><ly-as-12585581>Checkbox Field</ly-as-12585581></label><br>
+      <input type="checkbox" id="check3">
+      <label for="check3" class="inline"><ly-as-12585581>Checkbox Field</ly-as-12585581></label>
+    </fieldset>
+    <fieldset>
+      <legend><ly-as-12585582>Radios</ly-as-12585582></legend>
+      <input type="radio" name="radio" id="radio1">
+      <label for="radio1" class="inline"><ly-as-12585583>Option1</ly-as-12585583></label><br>
+      <input type="radio" name="radio" id="radio2"> <label for="radio2" class="inline"><ly-as-12585583>Option1</ly-as-12585583></label><br>
+      <input type="radio" name="radio" id="radio3">
+      <label for="radio3" class="inline"><ly-as-12585583>Option1</ly-as-12585583></label>
+    </fieldset>
+
+    <label for="textarea1"><ly-as-12585584>Textarea</ly-as-12585584></label>
+    <textarea id="textarea1" placeholder="<ly-as-12585623>Placeholder text</ly-as-12585623>"></textarea>
+
+    <label for="file1"><ly-as-12585585>File Field</ly-as-12585585></label>
+    <input id="file1" type="file">
+  </form>
+
+  <h4 class="docs-title"><ly-as-12585586>Notes and form errors</ly-as-12585586></h4>
+  <p><ly-as-12585587>No note styles exist in Slate but are commonly added to handle form errors. Example styles:</ly-as-12585587></p>
+  <pre>
+    .note {
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .note--success {
+      border-color: green;
+      background-color: lightgreen;
+    }
+
+    .errors {
+      border-color: red;
+      background-color: lightred;
+    }
+  </pre>
+
+  <p><ly-as-12585589>Example usage:</ly-as-12585589></p>
+  <pre>
+    <ly-as-12811576>{% raw %}{% if form.posted_successfully? %}{% endraw %}</ly-as-12811576>
+      <p class="note note--success"><ly-as-12585590>Thanks for submitting the form</ly-as-12585590></p>
+    {% raw %}{% endif %}{% endraw %}
+
+    {% raw %}{% if form.errors %}{% endraw %}
+      <div class="note errors">
+        <ly-as-12811578>{% raw %}{{ form.errors | default_errors }}{% endraw %}</ly-as-12811578>
+      </div>
+    <ly-as-12811579>{% raw %}{% endif %}{% endraw %}</ly-as-12811579>
+  </pre>
+
+  <div class="note"><ly-as-12585591>This is a standard note</ly-as-12585591></div>
+  <div class="note note--success"><ly-as-12585592>This is a success message</ly-as-12585592></div>
+  <div class="note errors">
+    <p><ly-as-12585593>This is an error message.</ly-as-12585593></p>
+    <ul>
+      <li><ly-as-12585594>Bullets can offer more insight to the error</ly-as-12585594></li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h2 class="docs-title"><ly-as-12585595>Buttons</ly-as-12585595></h2>
+
+  <p>
+    <a href="#" class="btn"><ly-as-12585596>Default button</ly-as-12585596></a>
+  </p>
+
+  <p>
+    <a href="#" class="btn btn--secondary"><ly-as-12585597>Default button (no defaults)</ly-as-12585597></a>
+  </p>
+
+  <p>
+    <a href="#" class="btn" disabled><ly-as-12585598>Button disabled</ly-as-12585598></a>
+  </p>
+
+  <p>
+    <a href="#" class="btn btn--full"><ly-as-12585599>Wide button (no defaults)</ly-as-12585599></a>
+  </p>
+
+  <hr>
+
+  <h2 class="docs-title"><ly-as-12585600>Miscellaneous elements</ly-as-12585600></h2>
+
+  <h4 class="docs-title"><ly-as-12585601>Horizontal Rules</ly-as-12585601></h4>
+  <p><ly-as-12585602>There are no default</ly-as-12585602> <code><ly-as-12585607>hr</ly-as-12585607></code> <ly-as-12585608>styles in Slate, but these are common ones to add.</ly-as-12585608></p>
+  <p><ly-as-12585610>Default</ly-as-12585610> <code><ly-as-12585607>hr</ly-as-12585607></code></p>
+  <hr>
+
+  <p><ly-as-12585611>Invisible</ly-as-12585611> <code><ly-as-12585612>hr.hr--clear</ly-as-12585612></code></p>
+  <hr class="hr--clear">
+
+  <p><ly-as-12585613>Small</ly-as-12585613> <code><ly-as-12585614>hr.hr--small</ly-as-12585614></code></p>
+  <hr class="hr--small">
+
+  <hr>
+
+  <h2 class="docs-title"><ly-as-12585615>SVG icons</ly-as-12585615></h2>
+  <p><ly-as-12585616>Read more about using, creating, and editing SVG icons in Slate's documentation.</ly-as-12585616></p>
+
+  <h4 class="docs-title"><ly-as-12585617>Payment icons</ly-as-12585617></h4>
+  <ul class="list--inline payment-icons">
+    <li>{% include 'icon-amazon_payments' %}</li>
+    <li>{% include 'icon-american_express' %}</li>
+    <li>{% include 'icon-bitcoin' %}</li>
+    <li>{% include 'icon-cirrus' %}</li>
+    <li>{% include 'icon-dankort' %}</li>
+    <li>{% include 'icon-diners_club' %}</li>
+    <li>{% include 'icon-discover' %}</li>
+    <li>{% include 'icon-dogecoin' %}</li>
+    <li>{% include 'icon-dwolla' %}</li>
+    <li>{% include 'icon-forbrugsforeningen' %}</li>
+    <li>{% include 'icon-interac' %}</li>
+    <li>{% include 'icon-jcb' %}</li>
+    <li>{% include 'icon-litecoin' %}</li>
+    <li>{% include 'icon-maestro' %}</li>
+    <li>{% include 'icon-master' %}</li>
+    <li>{% include 'icon-paypal' %}</li>
+    <li>{% include 'icon-stripe' %}</li>
+    <li>{% include 'icon-visa' %}</li>
+  </ul>
+
+  <h4 class="docs-title"><ly-as-12585618>Social icons</ly-as-12585618></h4>
+  <ul class="list--inline">
+    <li>{% include 'icon-facebook' %}</li>
+    <li>{% include 'icon-instagram' %}</li>
+    <li>{% include 'icon-pinterest' %}</li>
+    <li>{% include 'icon-tumblr' %}</li>
+    <li>{% include 'icon-twitter' %}</li>
+    <li>{% include 'icon-snapchat' %}</li>
+    <li>{% include 'icon-vimeo' %}</li>
+    <li>{% include 'icon-youtube' %}</li>
+  </ul>
+
+  <h4 class="docs-title"><ly-as-12585619>General icons</ly-as-12585619></h4>
+  <ul class="list--inline">
+    <ul class="list--inline">
+    <li>{% include 'icon-cart' %}</li>
+    <li>{% include 'icon-close' %}</li>
+    <li>{% include 'icon-hamburger' %}</li>
+    <li>{% include 'icon-minus' %}</li>
+    <li>{% include 'icon-plus' %}</li>
+    <li>{% include 'icon-rss' %}</li>
+    <li>{% include 'icon-search' %}</li>
+    </ul>
+  </ul>
+</div>

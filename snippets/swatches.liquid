@@ -1,0 +1,40 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div class="swatches">
+  {% assign found_option = false %}
+  {% assign is_color = false %}
+  {% assign option_index = 0 %}
+
+  {% for option in product.options %}
+    {% if option == swatches %}
+      {% assign downcased_option = swatches | downcase %}
+      {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'size' %}
+        {% assign found_option = true %}
+        {% assign option_index = forloop.index0 %}
+        {% assign swatch_index = forloop.index %}
+        {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+        {% assign is_color = true %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign values = '' %}
+  {% for variant in product.variants %}
+    {% assign value = variant.options[option_index] %}
+    {% unless values contains value %}
+      {% assign values = values | join: ',' %}
+      {% assign values = values | append: ',' | append: value %} 
+      {% assign values = values | split: ',' %}
+      {% assign valueImage = value | handle | append: '.png' %}
+      {% assign valueImageUrl = valueImage | file_url %}
+      <div class="swatch {% if is_color %}swatch__color{% else %}swatch__text{% endif %}">
+        <input type="radio" class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" name="{{downcased_option}}" data-index="option{{ swatch_index }}" value="{{ value | escape }}" {% if forloop.index == 1 %}checked{% endif %}>
+        {% if is_color %}
+        <div class="swatch__color--item" style="background: {{value | escape}} url({{ valueImageUrl }}) 0 0;"></div>
+        {% else %}
+        <div class="swatch__text--item">{{ value | escape }}</div>
+        {% endif %}
+      </div>
+    {% endunless %}
+  {% endfor %}
+</div>

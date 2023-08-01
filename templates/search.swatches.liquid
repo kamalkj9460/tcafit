@@ -1,0 +1,20 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{%- layout none -%}
+
+{%- paginate search.results by 250 -%}
+  {%- if search.performed -%}
+    {% unless search.results_count == 0 %}
+      <ul class="swatch-list">
+        {%- for product in search.results -%}
+
+            {% assign colour = product.handle | split: 'colour-' %}
+            {% assign swatch_name = colour[1] %}
+            {% assign swatch_image = colour[1] | append: '.png' %}
+          <li>
+            <a href="{{ product.url }}" class="swatch" style="background-image:url('{{ swatch_image | file_url }}');"></a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {% endunless %}
+  {%- endif -%}
+{%- endpaginate -%}

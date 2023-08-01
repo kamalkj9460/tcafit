@@ -1,0 +1,386 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+{% if section.settings.layout == 'grid' %}
+  {%- assign limit = section.settings.grid | times: section.settings.rows -%}
+{% else %}
+  {%- assign limit = 16 -%}
+{% endif %}
+
+{% paginate collection.products by limit %}
+{%- assign grid_image_width = '600x600' -%}
+<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+  <header class="collection-header">
+
+    {% if section.settings.show_collection_image and collection.image %}
+      <div class="collection-hero">
+        <div class="collection-hero__image" style="background-image: url({{ collection.image | img_url: '2000x2000', crop: 'top' }});">
+          <div class="collection-hero__title-wrapper">
+            <div class="collection-hero__content page-width-large">
+              <h1 class="h2 collection-hero__title">
+  
+                {% include 'ly-title' with collection %}
+                {% assign collection_title = ly_translation %}
+                
+                {%- assign collectiontitle__modifier = collection_title | downcase -%}
+                {% if collectiontitle__modifier contains "women " %}
+                  {{ collectiontitle__modifier | remove: "<ly-as-12584969>women</ly-as-12584969> " }}
+                {% elsif collectiontitle__modifier contains "men " %}
+                  {{ collectiontitle__modifier | remove: "<ly-as-12584970>men</ly-as-12584970> " }}
+                {% elsif collectiontitle__modifier contains "kid " %}
+                  {{ collectiontitle__modifier | remove: "<ly-as-12584971>kid</ly-as-12584971> " }}
+                {% else %}
+                  {{ collectiontitle__modifier }}
+                {% endif %}
+                
+
+              </h1>
+              {% if collection.description != blank %}
+                <div class="rte collection-description">
+                  <p>{% comment %}ly_code_replace_for_[ collection.description ]_begin{% endcomment %}{% include 'ly-description' with collection %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %}</p>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </header>
+
+ 
+
+  <div class="page-width-large" id="Collection" >
+    {% if section.settings.layout == 'grid' %}
+      {% case section.settings.grid %}
+      {% when '2' %}
+        {%- assign grid_item_width = 'medium-up--one-half' -%}
+        {%- assign image_size = 'grande' -%}
+      {% when '3' %}
+        {%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+        {%- assign image_size = 'large' -%}
+      {% when '4' %}
+        {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
+        {%- assign image_size = 'medium' -%}
+      {% when '5' %}
+        {%- assign grid_item_width = 'small--one-half medium-up--one-fifth' -%}
+        {%- assign image_size = 'medium' -%}
+      {% endcase %}
+      <div class="grid" >
+        <div class="grid__item grid--uniform {% if collection.products_count > 0 %} grid--view-items{% endif %} small--one-whole medium-up--two-twelfths">
+          <div id="bc-sf-filter-tree-mobile"></div>
+          <div id="bc-sf-filter-tree"></div>
+        </div>
+        <div id="bc-sf-filter-products" class="grid__item grid--uniform {% if collection.products_count > 0 %} grid--view-items{% endif %} small--one-whole medium-up--ten-twelfths">
+          {% for product in collection.products %}
+            <div class="grid__itemk {{ grid_item_width }} visibility-hidden">
+              {% include 'product-card-grid', grid_image_width: image_size %}
+            </div>
+          {% else %}
+            {% comment %}
+            Add default products to help with onboarding for collections/all only.
+
+            The onboarding styles and products are only loaded if the
+            store has no products.
+            {% endcomment %}
+            {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+              <div class="grid__item">
+                <div class="grid grid--uniform">
+                  {% for i in (1..limit) %}
+                    <div class="grid__item {{ grid_item_width }}">
+                      <div class="grid-view-item">
+                        <a href="#" class="grid-view-item__link">
+                          <div class="grid-view-item__image">
+                            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                          </div>
+                          <div class="h4 grid-view-item__title">{% comment %}ly_i18n_replace_for_[ 'homepage.onboarding.product_title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'homepage.onboarding.product_title' | t }}{% endcapture %}{% include 'ly-static-string' with '12584972' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</div>
+                          <div class="grid-view-item__meta">
+                            <span class="product-price__price">$19.99</span>
+                          </div>
+                        </a>
+                      </div>
+                      
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% else %}
+              {%- assign is_empty_collection = true -%}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% else %}
+      <div class="list-view-items">
+        {% for product in collection.products %}
+        {% assign phandle = product.handle %}
+          <a href="{{ product.url | within: collection }}" class="list-view-item">
+            {% include 'product-card-list', product: product %}
+          </a>
+        {% else %}
+
+          {% comment %}
+          Add default products to help with onboarding for collections/all only.
+
+          The onboarding styles and products are only loaded if the
+          store has no products.check memory size in liquid 
+          {% endcomment %}
+          {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0%}
+            {% for i in (1..4) %}
+              <a href="#" class="list-view-item">
+                <div class="list-view-item__image-column">
+                  <div class="list-view-item__image-wrapper">
+                    <div class="list-view-item__image">
+                      {%- assign placeholder = 'placeholder-product-' | append: i -%}
+                      {% include placeholder %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="list-view-item__title-column">
+                  <div class="list-view-item__title">{% comment %}ly_i18n_replace_for_[ 'homepage.onboarding.product_title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'homepage.onboarding.product_title' | t }}{% endcapture %}{% include 'ly-static-string' with '12584972' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</div>
+                </div>
+
+                <div class="list-view-item__price-column">
+                  <span class="product-price__price">$19.99</span>
+                </div>
+              </a>
+            {% endfor %}
+          {% else %}
+            {%- assign is_empty_collection = true -%}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if is_empty_collection %}
+      <div class="grid__item small--text-center">
+        <p class="text-center">{% comment %}ly_i18n_replace_for_[ 'collections.general.no_matches' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.general.no_matches' | t }}{% endcapture %}{% include 'ly-static-string' with '12584973' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</p>
+      </div>
+    {% endif %}
+
+    <div id="bc-sf-filter-bottom-pagination"></div>
+  </div>
+</div>
+
+{% endpaginate %}
+
+{% assign pHandle = '' %}
+{% paginate collection.products by 1000 %}
+{% for product in collection.products %}
+{% assign phandle = product.handle %}
+{% assign prod_Handle = product.handle | split: '-colour' | first %}
+		{% assign related_products = product.metafields.related.product | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+        {% for product_handle in related_products %}
+				{% assign rel_product_title = product_handle %}
+				{% assign rel_product_title2 = product_handle| append: ',' | append: rel_product_title2 %}
+{% endfor %}   
+	{% if rel_product_title2 %}
+		{% assign pindex = phandle |append: '@' | append: rel_product_title2 | append: '#' | append: pindex %}
+	{% endif %}
+
+
+	
+{% assign feat_img_url = product.images[0].src | img_url: grid_image_width | append: '#' | append: feat_img_url %}
+{% assign hover_img_url = product.images[1].src | img_url: grid_image_width | append: '#' | append: hover_img_url %}
+				
+{% assign rel_product_title2 = '' %}
+{% assign ptitles = phandle | append: '#' | append: ptitles %}
+
+{% endfor %} 
+{% endpaginate %}
+  
+<script>
+var bcSfFilterConfig = {
+  shop: {
+      apiUrl: 'https://services.mybcapps.com/bc-sf-filter/filter',
+      name: '{{ langify_shop_name | escape }}',
+      url: '{{ langify_shop_url }}',
+      domain: '{{ shop.permanentd_domain }}',
+      currency: '{{ shop.currency }}',
+      money_format: '{{ shop.money_format }}'
+    },
+    general: {
+      file_url: "{{ '' | file_url }}",
+      asset_url: "{% comment %}ly_asset_replace_for_[ 'bc-sf-filter.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'bc-sf-filter.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}",
+      collection_id: {{ collection.id | default: 0 }},
+      collection_handle: "{{ collection.handle }}",
+      {% for tag in collection.tags %} 
+        {% assign tag_handle = tag | handle %}
+        {% for current_tag in current_tags %} 
+          {% assign current_tag_handle = current_tag | handle %}
+          {% if current_tag_handle == tag_handle %}
+            {% assign current_tag_text = tag %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+      {% if current_tag_text != blank %}
+        collection_tags: ["{{ current_tag_text }}"],
+      {% endif %}
+      current_tags: {{ current_tags | json }},
+      default_sort_by: "{{ collection.default_sort_by }}",
+      swatch_extension: "png",
+      no_image_url: "{% comment %}ly_asset_replace_for_[ 'bc-sf-filter-no-image.gif' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'bc-sf-filter-no-image.gif' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}",
+      search_term: "{{ search.terms | default: '' }}"
+    },
+    {% if shop.metafields.bc-sf-filter.settings != blank %}
+    settings: {% comment %}ly_code_replace_for_[ shop.metafields.bc-sf-filter.settings ]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign ns = language | append: 'bc-sf-filter' %}{% assign key = 'settings' %}{% if shop.metafields[ns][key] %}{% assign ly_translation = shop.metafields[ns][key] %}{% else %}{% assign ly_translation =  shop.metafields.bc-sf-filter.settings  %}{% endif %}{{ ly_translation }}{% comment %}ly_code_replace_end{% endcomment %},
+    {% endif %}
+  	label: {
+  	xyz: ["{{ pindex }}"],
+  featImgUrls: ["{{feat_img_url}}"],
+  hoverImgUrls: ["{{hover_img_url}}"],
+  	collectionUrl: "{{ collection.url }}",
+  	ptitles: ["{{ptitles}}"],
+      sale: "{% comment %}ly_i18n_replace_for_[ 'products.product.on_sale' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'products.product.on_sale' | t }}{% endcapture %}{% include 'ly-static-string' with '12584974' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sold_out: "{% comment %}ly_i18n_replace_for_[ 'products.product.sold_out' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'products.product.sold_out' | t }}{% endcapture %}{% include 'ly-static-string' with '12584975' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      regular_price: "{% comment %}ly_i18n_replace_for_[ 'products.product.regular_price' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'products.product.regular_price' | t }}{% endcapture %}{% include 'ly-static-string' with '12584976' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sale_price: "{{ 'products.product.sale_price' | t }}",
+      from_price: "from ",
+      sale_from_price: "{{ 'products.product.on_sale_from_html' | t }}",
+      refine: "Refine By",
+      refine_mobile: "Refine By",
+      clear: "Clear",
+      clear_all: "Clear All",
+      apply: "Apply",
+      sorting: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.title' | t }}{% endcapture %}{% include 'ly-static-string' with '12584977' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sorting_featured: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.featured' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.featured' | t }}{% endcapture %}{% include 'ly-static-string' with '12584978' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sorting_title_ascending: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.az' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.az' | t }}{% endcapture %}{% include 'ly-static-string' with '12584979' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sorting_title_descending: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.za' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.za' | t }}{% endcapture %}{% include 'ly-static-string' with '12584980' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sorting_price_ascending: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.price_ascending' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.price_ascending' | t }}{% endcapture %}{% include 'ly-static-string' with '12584981' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sorting_price_descending: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.price_descending' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.price_descending' | t }}{% endcapture %}{% include 'ly-static-string' with '12584982' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sorting_date_ascending: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.date_ascending' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.date_ascending' | t }}{% endcapture %}{% include 'ly-static-string' with '12584983' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+      sorting_date_descending: "{% comment %}ly_i18n_replace_for_[ 'collections.sorting.date_descending' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.sorting.date_descending' | t }}{% endcapture %}{% include 'ly-static-string' with '12584984' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}",
+    },
+    custom: {
+      products_per_page: {{ limit }},
+      layout: '{{ section.settings.layout }}',
+      grid_number: {{ section.settings.grid }},
+      row_number: {{ section.settings.rows }},
+      vendor_enable: {{ section.settings.show_vendor }},
+      tags_enable: {{ section.settings.tags_enable }},
+      sort_enable: {{ section.settings.sort_enable }}
+    }
+ };
+  
+  if(typeof Geolizr !== "undefined") {
+    Geolizr.delaySetCurrency = function() {
+      if(Geolizr.delaySetCurrencyTimeout) clearTimeout(Geolizr.delaySetCurrencyTimeout);
+      Geolizr.delaySetCurrencyTimeout = setTimeout(function() { Geolizr.setCurrency(Geolizr.getCurrency()); }, 100);
+    };
+    
+    Geolizr.addEventListener('currency.api', function() {
+      $(window).ready(function() {
+        Geolizr.delaySetCurrency();   
+      });
+    });
+  }
+  
+</script>
+
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "default": "grid",
+        "options": [
+          {
+            "value": "grid",
+            "label": "Grid"
+          },
+          {
+            "value": "list",
+            "label": "List"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "grid",
+        "label": "Products per row (grid only)",
+        "default": "4",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "rows",
+        "label": "Rows per page (grid only)",
+        "default": "2",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "7",
+            "label": "7"
+          },
+          {
+            "value": "8",
+            "label": "8"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_image",
+        "label": "Show collection image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendors",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "sort_enable",
+        "label": "Enable sorting",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tags_enable",
+        "label": "Enable tag filtering",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

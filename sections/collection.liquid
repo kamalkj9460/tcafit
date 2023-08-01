@@ -1,0 +1,90 @@
+{% include 'spurit_po2_section_snippet', product: null, products: collections[section.settings.collection].products %}
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div class="page-width">
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2 class="h2-heading">{{ section.settings.title | escape }}</h2>
+    </div>
+  {% endif %}
+
+  {%- assign collection = collections[section.settings.collection] -%}
+
+  
+
+  <div class="grid grid--uniform grid--view-items homepage-collection">
+    {% for product in collection.products limit: product_limit %}
+      <div class="grid__item">
+        {% include 'product-card-grid-featured', 'large' %}
+      </div>
+    {% else %}
+
+      {% for i in (1..product_limit) %}
+        <div class="grid__item">
+          <div class="grid-view-item">
+            <a href="#" class="grid-view-item__link">
+              <div class="grid-view-item__image">
+                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="h4 grid-view-item__title text-center">{% comment %}ly_i18n_replace_for_[ 'homepage.onboarding.product_title' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'homepage.onboarding.product_title' | t }}{% endcapture %}{% include 'ly-static-string' with '12584985' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}</div>
+              {% if section.settings.show_price %}
+                <div class="grid-view-item__meta text-center">
+                  {% include 'product-price' %}
+                </div>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+  {% if section.settings.show_view_all %}
+    <hr class="hr--invisible"></hr>
+    <div class="text-center">
+      <a href="{{ collection.url }}" class="btn">
+        {% comment %}ly_i18n_replace_for_[ 'collections.general.view_all' | t ]_begin{% endcomment %}{% capture ly_template %}{{ 'collections.general.view_all' | t }}{% endcapture %}{% include 'ly-static-string' with '12584986' %}{% if ly_translation %}{% assign escape_content = true %}{% assign ly_template = ly_translation %}{% else %}{% assign escape_content = false %}{% endif %}{% if escape_content %}{{ ly_template | escape}}{% else %}{{ ly_template }}{% endif %}{% comment %}ly_i18n_replace_end{% endcomment %}
+      </a>
+    </div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+  {
+    "name": "Featured collection",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show 'View all' button",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_price",
+        "label": "Show price",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+

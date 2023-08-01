@@ -1,0 +1,216 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<script>
+  var translated = [];
+
+  var getTranslationFor = function(key) {
+    {% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}
+    {% for custom in shop.metafields.custom %}
+    {% assign src = custom | last %}
+    {% assign key = custom | first %}
+    {% assign key = key | split: "ly" | last %}
+    {% assign translation_namespace = language | append: "cu" %}
+    {% assign translation_key = "id" | append: key %}
+    {% if shop.metafields[translation_namespace][translation_key] %}
+    {% assign translation = shop.metafields[translation_namespace][translation_key] %}
+    {% assign src = src | replace: '"', 'ly_dq' %}
+    {% assign src = src | replace: "'", 'ly_sq' %}
+    {% assign src = '#ly_cu' | append: src %}
+    {% assign translation = translation | replace: '"', 'ly_dq' %}
+    {% assign translation = translation | replace: "'", 'ly_sq' %}
+    if(key.replace('"', 'ly_dq').replace("'", 'ly_sq').trim() == '{{ src }}') {
+       return '{{ translation }}';
+    }
+    {% endif %}
+	{% endfor %}
+       
+    return key;
+  };
+
+  var translateHtml = function(id, replace) {
+  	var element = $(id);
+    var content = element.html();
+    if(content) {
+      var translation = getTranslationFor(content);
+      if(content != translation) {
+        element.html(translation);
+      }
+    }
+  }
+  var translateAllHtml = function(query) {
+    var elements = $(query);
+    for(var i = 0; i < elements.length; i++) {
+      var element = $(elements[i]);
+      var content = element.html();
+      if(content) {
+        var translation = getTranslationFor(content);
+        if(content != translation) {
+          element.html(translation);
+        }
+      }
+    }
+  }
+
+  var translatePlaceholder = function(id) {
+  	var element = $(id);
+    var content = element.attr('placeholder');
+    if(content) {
+      var translation = getTranslationFor(content);
+      if(content != translation) {
+        element.attr('placeholder', translation);
+      }
+    }
+  }
+
+  var translateValue = function(id) {
+  	var element = $(id);
+    var content = element.val();
+    if(content) {
+      var translation = getTranslationFor(content);
+      if(content != translation) {
+        element.val(translation);
+      }
+    }
+  }
+  
+  $(function() {
+    $('body').bind('DOMSubtreeModified', function() {
+      translateHtml('.spr-header-title');
+      translateHtml('.spr-summary-caption');
+      translateHtml('.spr-summary-actions-newreview');
+      translateHtml('.spr-form-title');
+      translateHtml('.spr-body-of-review');
+      translateHtml('.spr-form-message');
+      translateHtml('.spr-based-on-text');
+      translateHtml('.spr-review-reportreview');
+      translateValue('.spr-button.spr-button-primary.button.button-primary.btn.btn-primary');
+
+      if($(this).hasClass('spr-reviews-text')){
+      var elements = $('.spr-review-text');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }
+      }
+      if($(this).hasClass('spr-form-label')){
+      var elements = $('.spr-form-label');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }
+      }
+      if($(this).hasClass('spr-form-input')){
+      var elements = $('.spr-form-input');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.attr('placeholder');
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.attr('placeholder', translation);
+          }
+        }
+      }
+      
+      }
+      if($(this).hasClass('bc-sf-filter-option-value')){
+      var elements = $('.bc-sf-filter-option-value');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }
+      }
+      
+      
+      
+      var elements = $('.bc-sf-filter-block-title h3 > span');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }
+      
+      
+      var elements = $('.selected-item.bc-sf-filter-option-label .selected-type > span');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }
+      var elements = $('.selected-item.bc-sf-filter-option-label .selected-type > strong');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }
+      
+      
+      
+      
+      
+      var elements = $('.grid-view-item__title p');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }    
+      //if($(this).hasClass('colourValue')){
+      var elements = $('.h6.colourValue');
+      for(var i = 0; i < elements.length; i++) {
+        var element = $(elements[i]);
+        var content = element.html();
+        if(content) {
+          var translation = getTranslationFor(content);
+          if(content != translation) {
+            element.html(translation);
+          }
+        }
+      }      
+      //}
+
+      
+      //translateHtml('.bc-sf-filter-option-value');   
+      //translateAllHtml('.bc-sf-filter-option-multiple-list .bc-sf-filter-option-value');   
+      //translateHtml('.selected-item.bc-sf-filter-option-label .selected-type > span');      
+      //translateHtml('.selected-item.bc-sf-filter-option-label .selected-type > strong');
+
+    });
+  });
+</script>

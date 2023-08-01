@@ -1,0 +1,119 @@
+{% comment %}ly_global_begin{% endcomment %}{% include 'ly-global' %}{% comment %}ly_global_end{% endcomment %}
+<div class="page-width">
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2>{{ section.settings.title | escape }}</h2>
+    </div>
+  {% endif %}
+
+
+{% if cart.attributes.language == 'ly59767' %}
+  <!-- DE -->
+    <div class="grid grid--uniform">
+    <div class="grid__item medium-up--one-whole small--one-whole">
+      <div class="instagram-section">
+        {% comment %}Instagram embed link below{% endcomment %}
+        <div id="insta-feed"></div>
+        {% if section.settings.button_label_de != blank and section.settings.insta_account_link_de != blank %}
+          <div class="text-center" style="margin-top: 40px;">
+          <a href="https://www.instagram.com/{{ section.settings.insta_account_link_de }}" target="_blank" class="btn btn--secondary">
+            {{ section.settings.button_label_de }}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  
+{% else %}
+  <!-- EN -->
+    <div class="grid grid--uniform">
+    <div class="grid__item medium-up--one-whole small--one-whole">
+      <div class="instagram-section">
+        {% comment %}Instagram embed link below{% endcomment %}
+        <div id="insta-feed"></div>
+        {% if section.settings.button_label != blank and section.settings.insta_account_link != blank %}
+          <div class="text-center" style="margin-top: 40px;">
+          <a href="https://www.instagram.com/{{ section.settings.insta_account_link }}" target="_blank" class="btn btn--secondary">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+  
+  
+</div>
+
+{% schema %}
+  {
+    "name": "Instagram section",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "type": "text",
+        "id": "gallery_id",
+        "label": "Gallery embed ID",
+        "default": "covet-pics-gallery"
+      },
+      {
+        "type": "text",
+        "id": "data_id",
+        "label": "Gallery data ID",
+        "default": "36095"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "text",
+        "id": "insta_account_link",
+        "label": "Instagram account name DE",
+        "default": "wemakewebsites_"
+      },
+
+      {
+        "type": "text",
+        "id": "gallery_id_de",
+        "label": "Gallery embed ID DE",
+        "default": "covet-pics-gallery"
+      },
+      {
+        "type": "text",
+        "id": "data_id_de",
+        "label": "Gallery data ID DE",
+        "default": "36095"
+      },
+      {
+        "type": "text",
+        "id": "button_label_de",
+        "label": "Button label DE"
+      },
+      {
+        "type": "text",
+        "id": "insta_account_link_de",
+        "label": "Instagram account name DE",
+        "default": "wemakewebsites_"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Instagram section",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}
