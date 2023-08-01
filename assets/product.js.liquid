@@ -1,4 +1,5 @@
-(function($){ 
+setTimeout(function(){ 
+  var $ = jQuery;
   // THESE ARE INITIALISATIONS AND OPTIONS FOR THE PRODUCT TEMPLATE GALLERY ONLY
   theme.Product();
 
@@ -84,4 +85,4 @@
 
     });
   });
-})(jQuery);
+});

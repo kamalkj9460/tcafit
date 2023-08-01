@@ -14,6 +14,9 @@
   .template-product .main-content .product-template__container .product_content .product-single__meta form select{
     border-radius: 40px;
   }
+  .product-template__junior .selectric-items {
+    display: block!important;
+}
 </style>
 
 <div class="product-template__container page-width-large product-template__junior" itemscope itemtype="http://schema.org/Product" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
@@ -242,7 +245,22 @@
                     
                     <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
                       {% for value in option.values %}
-                        <option title="{{ option.names }}" value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                        <option title="{{ option.names }}" value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>
+                              {% if value == 'X-Small' -%}
+                              XS
+                            {%- elsif value == 'Small' -%}
+                              S
+                            {%- elsif value == 'Medium' -%}
+                              M
+                            {%- elsif value == 'Large' -%}
+                              L
+                            {%- elsif value == 'X-Large' -%}
+                              XL
+                            {%- elsif value == 'XX-Large' -%}
+                              XXL
+                            {%- endif %}
+
+</option>
                       {% endfor %}
 <!--                       {% for variant in product.variants %}
                       {% assign stock = variant.inventory_quantity | plus: 0 %}
@@ -395,12 +413,6 @@ owl.owlCarousel({
       });
 
 </script>
-
-<script type="text/javascript">
-  $('.inline').modaal();
-  theme.VariantHandle.init();
-</script>
-
 <div id="size-chart" class="mfp-hide">
   {{ pages.junior-size-guide.content }}
 </div>

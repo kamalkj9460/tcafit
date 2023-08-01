@@ -379,7 +379,7 @@
                 {% for option in product.options_with_values %}
                   {% if option.name == 'Size' %}
                     {% assign option_handle = option.name | handle %}
-
+                      {{  option.name }}
                     <div class="selector-wrapper js product-form__item">
                       <!-- This label Tag contain heading of size -->
 
@@ -622,7 +622,7 @@
     {{ product | json }}
   </script>
 {% endunless %}
-<script type="text/javascript">
+<script type="lazyload_int">
     jQuery(document).ready(function($){
   //alert('hello');
       setTimeout(function(){
@@ -661,7 +661,7 @@
         });
 </script>
 
-<script type="text/javascript">
+<script type="lazyload_int">
   $('.inline').modaal();
   theme.VariantHandle.init();
 </script>

@@ -129,7 +129,7 @@ $z-index-notification-bar: 10;
 $z-index-skip-to-content: 10000; // really high to be safe of app markup
 
 /*================ SVG ================*/
-$svg-select-icon: #{'//cdn.shopify.com/s/files/1/2659/0318/t/74/assets/ico-select.svg?v=155563818344741998551683639422'};
+$svg-select-icon: #{'//cdn.shopify.com/s/files/1/2659/0318/t/79/assets/ico-select.svg?v=155563818344741998551689942672'};
 
 /*================ Drawers ================*/
 $transition-drawer: all 0.45s cubic-bezier(0.29, 0.63, 0.44, 1);
@@ -552,7 +552,7 @@ https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_f
 
 // Only called once so make sure proper file is grabbed
 @function slick-image-url($url) {
-  @return url(//cdn.shopify.com/s/files/1/2659/0318/t/74/assets/ajax-loader.gif?v=57030077013902383151683639422);
+  @return url(//cdn.shopify.com/s/files/1/2659/0318/t/79/assets/ajax-loader.gif?v=57030077013902383151689942672);
 }
 
 /*============================================================================
@@ -5578,7 +5578,7 @@ $toolbar-height-small: 46px;
   .instagram_linklist {
     .btn_instagram {
       &:before {
-        content: url(//cdn.shopify.com/s/files/1/2659/0318/t/74/assets/https://cdn.shopify.com/s/files/1/2659/0318/files/instagram-logo.svg?30225);
+        content: url(//cdn.shopify.com/s/files/1/2659/0318/t/79/assets/https://cdn.shopify.com/s/files/1/2659/0318/files/instagram-logo.svg?30512);
         margin-right: 6px;
         vertical-align: sub;
       }
@@ -6895,7 +6895,7 @@ body{
 
 // Footer sign up section
 .footer_signup_section {
-  background-image: url(//cdn.shopify.com/s/files/1/2659/0318/files/https://cdn.shopify.com/s/files/1/2659/0318/files/footer-signup-image.jpg?v=17011345916632291437&30225);
+  background-image: url(//cdn.shopify.com/s/files/1/2659/0318/files/https://cdn.shopify.com/s/files/1/2659/0318/files/footer-signup-image.jpg?v=17011345916632291437&30512);
 background-size: cover;
   margin-top: 60px;
   background-position: center center;
@@ -7390,7 +7390,7 @@ background-size: cover;
       display: none!important;
     }
     span {
-      background-image: url(//cdn.shopify.com/s/files/1/2659/0318/t/74/assets/icon-close.svg?v=36921026010618183381683639422);
+      background-image: url(//cdn.shopify.com/s/files/1/2659/0318/t/79/assets/icon-close.svg?v=36921026010618183381689942672);
       background-size: cover;
       background-size: cover;
       position: absolute!important;
@@ -7588,7 +7588,7 @@ input[type=number]::-webkit-outer-spin-button {
         position: relative;
         font-size: 1.2em!important;
         &:after {
-          content: url(//cdn.shopify.com/s/files/1/2659/0318/t/74/assets/plus_icon.svg?v=166779838769297502931683639422);
+          content: url(//cdn.shopify.com/s/files/1/2659/0318/t/79/assets/plus_icon.svg?v=166779838769297502931689942672);
           position: absolute;
           right: 0;
           margin-top: 1px;
@@ -9155,7 +9155,7 @@ margin: 0 auto;
     color: #fff;
 }
 .product-template__junior .selectric-items {
-    display: none!important;
+    display: block!important;
 }
 .product-template__junior .selectric-hide-select {
     display: block!important;

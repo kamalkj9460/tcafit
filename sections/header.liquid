@@ -13,7 +13,7 @@
         </a>
         </li>
         <li id="slidertype2" class="slidertype">
-          <!-- TrustBox script --> <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script> <!-- End TrustBox script -->
+          <!-- TrustBox script --> <script type="lazyload_int" data-src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"></script> <!-- End TrustBox script -->
           <div class="desk_tpilot">
 				<!-- TrustBox widget - Micro Review Count -->
             <div class="trustpilot-widget" data-locale="en-GB" data-template-id="5419b6a8b0d04a076446a9ad" data-businessunit-id="5bd852a183c95e0001f6f170" data-style-height="46px" data-style-width="100%" data-theme="dark">
@@ -282,7 +282,7 @@
 
 
 
-<script type="text/javascript">
+<script {% if template contains "collection" %}type="text/javascript"{% else %}type="lazyload_int"{% endif %}>
     $(document).ready(function() {
       $('[data-tab]').on('click', function (e) {
         e.preventDefault()
@@ -294,7 +294,7 @@
       })
   });
 </script>
-  <script type="text/javascript">
+  <script {% if template contains "collection" %}type="text/javascript"{% else %}type="lazyload_int"{% endif %}>
     $(document).ready(function() {
 //   	var divs = $('ul.fade_slider li');
 //       //alert(divs);

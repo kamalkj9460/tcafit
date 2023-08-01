@@ -3,6 +3,7 @@
 
 <!doctype html>
 <head>
+  {% render 'wnw_header' %}
   <!-- Added by AVADA Joy -->
   {% include 'avada-joy' %}
   <!-- /Added by AVADA Joy -->
@@ -157,7 +158,7 @@ window.dataLayer.push({
 </script> 
   
 <!-- Google Tag Manager -->
-<script data-ot-ignore>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<script data-ot-ignore type="lazyload_int">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://gc.tca.fit/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -166,8 +167,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   
 <!-- OneTrust Cookies Consent Notice start for tca.fit -->
-<script type="text/javascript" src="https://cdn.cookielaw.org/consent/35755d29-44aa-45c7-8b9e-651f8e8b15e9/OtAutoBlock.js" ></script>
-<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="35755d29-44aa-45c7-8b9e-651f8e8b15e9" ></script>
+<script type="lazyload_int" data-src="https://cdn.cookielaw.org/consent/35755d29-44aa-45c7-8b9e-651f8e8b15e9/OtAutoBlock.js" ></script>
+<script type="lazyload_int" data-src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="35755d29-44aa-45c7-8b9e-651f8e8b15e9" ></script>
 <script type="text/javascript">
 function OptanonWrapper() { }
 </script>
@@ -176,7 +177,7 @@ function OptanonWrapper() { }
 <!--[if IE 9]> <html class="ie9 no-js" lang="{% comment %}ly_lang_replace_for_[{{ shop.locale }}]_begin{% endcomment %}{% if request.host %}{% assign language = '' %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains request.host %}{% assign language = key %}{% endif %}{% endfor %}{% if shop.metafields.language_codes[language] %}{% assign code = shop.metafields.language_codes[language] %}{% else %}{% assign code = '{{ shop.locale }}' %}{% endif %}{% else %}{% assign code = '{{ shop.locale }}' %}{% endif %}{{ code }}{% comment %}ly_lang_replace_end{% endcomment %}"{% comment %}ly_dir_replace_for_[]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% if shop.metafields.languages_dir[language] == 'rtl' %} dir="rtl" {% endif %}{% comment %}ly_dir_replace_end{% endcomment %}> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{% comment %}ly_lang_replace_for_[{{ shop.locale }}]_begin{% endcomment %}{% if request.host %}{% assign language = '' %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains request.host %}{% assign language = key %}{% endif %}{% endfor %}{% if shop.metafields.language_codes[language] %}{% assign code = shop.metafields.language_codes[language] %}{% else %}{% assign code = '{{ shop.locale }}' %}{% endif %}{% else %}{% assign code = '{{ shop.locale }}' %}{% endif %}{{ code }}{% comment %}ly_lang_replace_end{% endcomment %}"{% comment %}ly_dir_replace_for_[]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% if shop.metafields.languages_dir[language] == 'rtl' %} dir="rtl" {% endif %}{% comment %}ly_dir_replace_end{% endcomment %}> <!--<![endif]-->
 <!-- Hotjar Tracking Code for tca.fit -->
-<script async>
+<script type="lazyload_int">
     (function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:1194371,hjsv:6};
@@ -187,7 +188,13 @@ function OptanonWrapper() { }
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>  
   
-<script src="{{ 'jquery.3.4.0.ets.js' | asset_url }}" type="text/javascript"></script>
+
+    {% if template contains 'collection' or template contains 'search' %}
+    	<script src="{{ 'jquery.3.4.0.ets.js' | asset_url }}" type="text/javascript"></script>
+    {% else %}
+    	<script type="lazyload_int" data-src="{{ 'jquery.3.4.0.ets.js' | asset_url }}"></script>
+    {% endif %}
+  
   <meta name="msvalidate.01" content="1BFC0139165349AADB4E5C8AB7ABA4C8" />
 <meta name="google-site-verification" content="ujpe7v9ABE6PxqgYKSSN-13D-FK5rzSzbmlNwT24KCo" />
   <meta charset="utf-8">
@@ -222,23 +229,32 @@ function OptanonWrapper() { }
 
   {% include 'social-meta-tags' %}
 
-  {% comment %}ly_asset_replace_for_[ 'theme.scss.css' | asset_url | stylesheet_tag ]_begin{% endcomment %}{% assign ly_asset = 'theme.scss.css' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | stylesheet_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-  {% comment %}ly_asset_replace_for_[ 'selectric.css' | asset_url | stylesheet_tag ]_begin{% endcomment %}{% assign ly_asset = 'selectric.css' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | stylesheet_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-  {% comment %}ly_asset_replace_for_[ 'modaal.css' | asset_url | stylesheet_tag ]_begin{% endcomment %}{% assign ly_asset = 'modaal.css' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | stylesheet_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+  <link data-href="//tca.fit/cdn/shop/t/79/assets/theme.scss.css?v=166362646579748366931689943096" rel="stylesheet" />
+  <link data-href="//tca.fit/cdn/shop/t/79/assets/selectric.css?v=80347844885870676351689942672" rel="stylesheet" />
+  <link data-href="//tca.fit/cdn/shop/t/79/assets/modaal.css?v=115954797626173395621689942672" rel="stylesheet" />
 
-  <!-- Theme scripts -->
-  {% comment %}ly_asset_replace_for_[ 'doc_ready.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'doc_ready.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-  {% comment %}ly_asset_replace_for_[ 'cookies.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'cookies.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-  {% comment %}ly_asset_replace_for_[ 'jquery.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'jquery.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-  {% comment %}ly_asset_replace_for_[ 'meganav.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'meganav.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-  {% comment %}ly_asset_replace_for_[ 'jquery.selectric.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'jquery.selectric.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-
+    {% if template contains 'collection' or template contains 'search' %}
+      <!-- Theme scripts -->
+      {% comment %}ly_asset_replace_for_[ 'doc_ready.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'doc_ready.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+      {% comment %}ly_asset_replace_for_[ 'cookies.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'cookies.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+      {% comment %}ly_asset_replace_for_[ 'jquery.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'jquery.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+      {% comment %}ly_asset_replace_for_[ 'meganav.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'meganav.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+      {% comment %}ly_asset_replace_for_[ 'jquery.selectric.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'jquery.selectric.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+    {% else %}
+      <!-- Theme scripts -->
+      <script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/doc_ready.js?v=166718505062901536121689942672"></script>
+      <script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/cookies.min.js?v=34631466442619290801689942672"></script>
+      <script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/jquery.min.js?v=110597976889476522701689942672"></script>
+      <script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/meganav.js?v=110565144069469692521689942672"></script>
+      <script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/jquery.selectric.min.js?v=16869610865725196231689942672"></script>
+    {% endif %}
+  
   {% if template contains 'product' %}
-    {% comment %}ly_asset_replace_for_[ 'modaal.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'modaal.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+      <script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/modaal.min.js?v=112298900803477338831689942672"></script>  
   {% endif %}
 
-{{ 'owl.carousel.min.css' | asset_url | stylesheet_tag }}
-  {{ 'owl.theme.default.min.css' | asset_url | stylesheet_tag }}
+  <link data-href="//tca.fit/cdn/shop/t/79/assets/owl.carousel.min.css?v=70516089817612781961689942672" rel="stylesheet" />
+  <link data-href="//tca.fit/cdn/shop/t/79/assets/owl.theme.default.min.css?v=135046118358282713361689942672" rel="stylesheet" />
   <script>
     var theme = {
       strings: {
@@ -265,10 +281,23 @@ function OptanonWrapper() { }
   <script defer type="text/javascript">var modalState = false;</script>
 
   <!-- apps scripts -->
-  {{ 'owl.carousel.min.js' | asset_url | script_tag }}
+ 
+      {% if template contains 'collection' or template contains 'search' %}
+    	 {{ 'owl.carousel.min.js' | asset_url | script_tag }}
+    {% else %}
+    	<script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/owl.carousel.min.js?v=97891440811553454251689942672"></script>
+    {% endif %}
+	
   {% render 'orbislabs_sitemap_noindex' %}
 
-{{ content_for_header }}
+    {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+            {{ content_for_header }}
+    {%- else -%}
+            {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+            {{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload_int" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "w3-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);" }}
+            <script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+    {%- endif -%}
+  
 {%- include 'bold-common' -%}
 
   {% comment %}ly_asset_replace_for_[ 'bc-sf-filter.scss.css' | asset_url | stylesheet_tag ]_begin{% endcomment %}{% assign ly_asset = 'bc-sf-filter.scss.css' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | stylesheet_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
@@ -280,7 +309,7 @@ function OptanonWrapper() { }
 
 
 <!-- TrustBox script -->
-<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+<script type="lazyload_int" data-src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"></script>
 <!-- End Trustbox script -->
 
 <script type="text/javascript">var ryviu_user_settings = {% comment %}ly_code_replace_for_[shop.metafields.ryviu.user_settings]_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% assign ns = language | append: 'ryviu' %}{% assign key = 'user_settings' %}{% if shop.metafields[ns][key] %}{% assign ly_translation = shop.metafields[ns][key] %}{% else %}{% assign ly_translation = shop.metafields.ryviu.user_settings %}{% endif %}{{ly_translation}}{% comment %}ly_code_replace_end{% endcomment %};</script>{% comment %}ly_dir_styles_begin{% endcomment %}{% if request.host %}{% assign host = request.host %}{% assign domains = shop.metafields.language_domains %}{% for domain in domains %}{% assign key = domain | first %}{% assign value = domain | last | split: ',' %}{% if value contains host %}{% assign language = key %}{% endif %}{% endfor %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% else %}{% assign language = cart.attributes["language"] %}{% if language == nil %}{% assign language = shop.metafields["languages"]["default"] %}{% endif %}{% endif %}{% if shop.metafields.languages_dir[language] == 'rtl' %}{% comment %}ly_asset_replace_for_[ 'ly-rtl.css' | asset_url | stylesheet_tag ]_begin{% endcomment %}{% assign ly_asset = 'ly-rtl.css' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | stylesheet_tag }}{% comment %}ly_asset_replace_end{% endcomment %}{% endif %}{% comment %}ly_dir_styles_end{% endcomment %}{% comment %}ly_static_code_begin{% endcomment %}{% if langify_shop_url contains 'https://' %}{% assign used_protocol = 'https://' %}{% else %}{% assign used_protocol = 'http://' %}{% endif %}{% for language in shop.metafields.languages %}{% assign language_key = language | first %}{% if language_key != 'default' %}{% assign split_domains = shop.metafields.language_domains[language_key] | split: ',' %}{% assign language_domain = split_domains[0] %}{% if language_domain %}{% assign language_code = shop.metafields.language_codes[language_key] %}{% if language_code %}{% capture tmp %}{{ content_for_header }}
@@ -289,11 +318,12 @@ function OptanonWrapper() { }
   {% include 'fa_translate_custom' %}
     {% include "loyaltylion" %}
 {% capture boostersnippet %}{% include "booster-apps-common" %}{% endcapture %}{% unless boostersnippet contains "Liquid error" %}{{ boostersnippet }}{% endunless %}
+{% render 'app-block' %}
+{% render 'theme-css' %}
+{% render 'custom-css' %}
 </head>
 
-<script
-  async type="text/javascript"
-  src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LeHunv">
+<script async type="lazyload_int" data-src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=LeHunv">
 </script>
 
 <body class="template-{{ template | split: '.' | first | replace: '/', '-' | handleize }}">
@@ -352,42 +382,77 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {% section 'newsletter_footer' %}
     {% section 'footer' %}
 
-    <script src="//cdn.codeblackbelt.com/js/modules/frequently-bought-together/main.min.js?shop=tcastore.myshopify.com"></script>
+    <script type="lazyload_int" data-src="//cdn.codeblackbelt.com/js/modules/frequently-bought-together/main.min.js?shop=tcastore.myshopify.com"></script>
 
     
   </div>
 
-  <!-- Scripts -->
-  <!--[if (gt IE 9)|!(IE)]><!--><script src="{% comment %}ly_asset_replace_for_[ 'vendor.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'vendor.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" defer="defer"></script><!--<![endif]-->
-  <!--[if lte IE 9]><script src="{% comment %}ly_asset_replace_for_[ 'vendor.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'vendor.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}"></script><![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--><script src="{% comment %}ly_asset_replace_for_[ 'theme.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'theme.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" defer="defer"></script><!--<![endif]-->
-  <!--[if lte IE 9]><script src="{% comment %}ly_asset_replace_for_[ 'theme.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'theme.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}"></script><![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--><script src="{% comment %}ly_asset_replace_for_[ 'frame.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'frame.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" defer="defer"></script><!--<![endif]-->
-  <!--[if lte IE 9]><script src="{% comment %}ly_asset_replace_for_[ 'frame.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'frame.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}"></script><![endif]-->
+  
+
+    
+    {% if template contains 'collection' or template contains 'search' %}
+      <!-- Scripts -->
+      <!--[if (gt IE 9)|!(IE)]><!--><script src="{% comment %}ly_asset_replace_for_[ 'vendor.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'vendor.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" defer="defer"></script><!--<![endif]-->
+      <!--[if lte IE 9]><script src="{% comment %}ly_asset_replace_for_[ 'vendor.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'vendor.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}"></script><![endif]-->
+      <!--[if (gt IE 9)|!(IE)]><!--><script src="{% comment %}ly_asset_replace_for_[ 'theme.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'theme.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" defer="defer"></script><!--<![endif]-->
+      <!--[if lte IE 9]><script src="{% comment %}ly_asset_replace_for_[ 'theme.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'theme.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}"></script><![endif]-->
+      <!--[if (gt IE 9)|!(IE)]><!--><script src="{% comment %}ly_asset_replace_for_[ 'frame.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'frame.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" defer="defer"></script><!--<![endif]-->
+      <!--[if lte IE 9]><script src="{% comment %}ly_asset_replace_for_[ 'frame.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'frame.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}"></script><![endif]-->
+    {% else %}
+      <!-- Scripts -->
+      <!--[if (gt IE 9)|!(IE)]><!--><script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/vendor.js?v=23686640814811684891689942672"></script><!--<![endif]-->
+      <!--[if lte IE 9]><script src="//tca.fit/cdn/shop/t/79/assets/vendor.js?v=23686640814811684891689942672"></script><![endif]-->
+      <!--[if (gt IE 9)|!(IE)]><!--><script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/theme.js?v=180138820860035475271689942672"></script><!--<![endif]-->
+      <!--[if lte IE 9]><script src="//tca.fit/cdn/shop/t/79/assets/theme.js?v=180138820860035475271689942672"></script><![endif]-->
+      <!--[if (gt IE 9)|!(IE)]><!--><script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/frame.js?v=79368512746391877731689942673"></script><!--<![endif]-->
+      <!--[if lte IE 9]><script src="//tca.fit/cdn/shop/t/79/assets/frame.js?v=79368512746391877731689942672"></script><![endif]-->
+    {% endif %}
+  
   {% if template contains 'product' %}
-  <!--[if (gt IE 9)|!(IE)]><!--><script src="{% comment %}ly_asset_replace_for_[ 'product.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'product.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}" defer="defer"></script><!--<![endif]-->
-  <!--[if lte IE 9]><script src="{% comment %}ly_asset_replace_for_[ 'product.js' | asset_url ]_begin{% endcomment %}{% assign ly_asset = 'product.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  }}{% comment %}ly_asset_replace_end{% endcomment %}"></script><![endif]-->
+    <!--[if (gt IE 9)|!(IE)]><!--><script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/product.js?v=8377025710216376431689942673"></script><!--<![endif]-->
+    <!--[if lte IE 9]><script src="//tca.fit/cdn/shop/t/79/assets/product.js?v=8377025710216376431689942672"></script><![endif]-->
   {% endif %}
 
-  {% include 'js-content' %}
+    {% if template contains 'collection' or template contains 'search' %}
+    	{% include 'js-content' %}
+    {% else %}
+    	{% include 'js-content2' %}
+    {% endif %}
 
-  {% comment %}ly_asset_replace_for_[ 'masonry.pkgd.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'masonry.pkgd.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
-
-  {% include 'js-translations' %}
-
+    {% if template contains 'collection' or template contains 'search' %}
+    	{% comment %}ly_asset_replace_for_[ 'masonry.pkgd.min.js' | asset_url | script_tag ]_begin{% endcomment %}{% assign ly_asset = 'masonry.pkgd.min.js' %}{% include 'ly-asset' with ly_asset %}{{ ly_translation  | script_tag }}{% comment %}ly_asset_replace_end{% endcomment %}
+    {% else %}
+    	 <script type="lazyload_int" data-src="//tca.fit/cdn/shop/t/79/assets/masonry.pkgd.min.js?v=100436220696619683161689942672"></script>
+    {% endif %}
+	
+    {% if template contains 'collection' or template contains 'search' %}
+    	{% include 'js-translations' %}
+    {% else %}
+    	{% include 'js-translations2' %}
+    {% endif %}
  
-<script>function myInit(){ StampedFn.init({ apiKey: 'pubkey-92X0Y3Z130NcDjqco12nLFx4932b24', sId: '42782' }); }</script>
-<script async onload="myInit()" type="text/javascript" src="https://cdn1.stamped.io/files/widget.min.js"></script>
+<script type="lazyload_int">function myInit(){ StampedFn.init({ apiKey: 'pubkey-92X0Y3Z130NcDjqco12nLFx4932b24', sId: '42782' }); }</script>
+<script type="lazyload_int" data-src="https://cdn1.stamped.io/files/widget.min.js"></script>
  
 
-
-  {% include 'bc-sf-filter' %}
+    {% if template contains 'collection' or template contains 'search' %}
+    	  {% include 'bc-sf-filter' %}
+    {% else %}
+    	  {% include 'bc-sf-filter2' %}
+    {% endif %}
 
 			
-{% comment %}ly_static_code_begin{% endcomment %}{% include 'ly-languages' %}{% comment %}ly_static_code_end{% endcomment %}
+{% comment %}ly_static_code_begin{% endcomment %}
+    {% if template contains 'collection' or template contains 'search' %}
+    	{% include 'ly-languages' %}
+    {% else %}
+    	{% include 'ly-languages2' %}
+    {% endif %}
+  
+  {% comment %}ly_static_code_end{% endcomment %}
   {% include 'ets_instagram_shopping_slider_js' %}
-  <script async src="https://cdn.enlistly.com/track/tca.fit.enlistly.js"></script>
-  <script language="JavaScript" src="//porjs.com/2013.js"></script>
+  <script type="lazyload_int" data-src="https://cdn.enlistly.com/track/tca.fit.enlistly.js"></script>
+  <script type="lazyload_int" data-src="//porjs.com/2013.js"></script>
 {% comment %}{% include 'spurit_po2_theme_snippet' %}{% endcomment %}
 
 <!-- Back in Stock helper snippet -->
@@ -396,6 +461,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
  {% include 'smile-initializer' %}
 
+  <script>
+      	var site_nav_link_burger = true;
+      	document.addEventListener("DOMContentLoaded", function() {
+            var icon_menu = document.querySelector(".mobile-nav-flex .left-icons .js-mobile-nav-toggle");
+            icon_menu.addEventListener("click", function() {
+      			if(site_nav_link_burger) {
+      				event.preventDefault();
+      				site_nav_link_burger = false;
+      			}
+      		});
+      	})
+      </script>
+  <style>
+@media(max-width:575px){
+div#product-detail-slider {
+    display: none !important;
+}
+}
+    </style>
+{% render 'wnw_footer' %}
+<script language="JavaScript" src="//porjs.com/2013.js"></script>
 </body>
 </html>
 
